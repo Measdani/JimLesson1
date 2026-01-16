@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Lesson 1 Prototype</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="wrap">
+    <h1>Lesson 1 — The Intelligence Revolution and You</h1>
+
+    <div class="panel">
+      <div class="row">
+        <div class="col">
+          <h2 id="segTitle"></h2>
+          <audio id="audio" controls></audio>
+
+          <div class="controls">
+            <button id="btnPlay">Play</button>
+            <button id="btnPause">Pause</button>
+            <button id="btnRepeat">Repeat segment</button>
+            <button id="btnAsk">Ask a question</button>
+            <button id="btnNext">Next</button>
+          </div>
+
+          <div class="gate" id="gateBox"></div>
+
+          <div class="transcript">
+            <h3>Transcript</h3>
+            <pre id="transcript"></pre>
+          </div>
+        </div>
+
+        <div class="col side">
+          <h3>Progress</h3>
+          <ol id="progress"></ol>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal hidden" id="qModal">
+      <div class="modalContent">
+        <h3>Ask a question</h3>
+        <textarea id="qText" rows="5" placeholder="Type your question here..."></textarea>
+        <div class="controls">
+          <button id="btnSend">Send</button>
+          <button id="btnClose">Resume lesson</button>
+        </div>
+
+        <div class="answer">
+          <h4>Quest’s answer</h4>
+          <pre id="answerText"></pre>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="lesson1_segments.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

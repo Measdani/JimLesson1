@@ -1,0 +1,15 @@
+body { font-family: system-ui, Arial, sans-serif; margin: 0; background:#f6f6f6; }
+.wrap { max-width: 1100px; margin: 0 auto; padding: 18px; }
+.panel { background: white; border-radius: 10px; padding: 16px; box-shadow: 0 2px 10px rgba(0,0,0,.08); }
+.row { display: flex; gap: 18px; }
+.col { flex: 2; }
+.side { flex: 1; }
+.controls { display:flex; gap:10px; flex-wrap:wrap; margin: 10px 0; }
+button { padding: 8px 12px; border-radius: 8px; border: 1px solid #ccc; background:#fff; cursor:pointer; }
+button:disabled { opacity:.5; cursor:not-allowed; }
+.gate { margin-top: 10px; padding: 10px; background:#faf3d1; border:1px solid #e7d28b; border-radius:8px; min-height: 44px; }
+.transcript pre, .answer pre { background:#f2f2f2; padding: 10px; border-radius: 8px; white-space: pre-wrap; }
+.modal { position: fixed; inset: 0; background: rgba(0,0,0,.45); display:flex; align-items:center; justify-content:center; }
+.modalContent { width: min(900px, 92vw); background:#fff; border-radius: 10px; padding: 16px; }
+.hidden { display:none; }
+textarea { width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ccc; }
