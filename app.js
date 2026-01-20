@@ -1,3 +1,5 @@
+import { LESSON1 } from "./lesson1_segments.js";
+
 const audio = document.getElementById("audio");
 const segTitle = document.getElementById("segTitle");
 const transcript = document.getElementById("transcript");

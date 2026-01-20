@@ -1,15 +1,14 @@
-// Each segment should eventually include either:
-// - audioUrl (pre-rendered MP3/WAV), OR
-// - leave audioUrl blank for now and just test pacing with transcript.
-//
-const LESSON1 = [
+// Lesson 1 deterministic segments for the UI + gating.
+// audioUrl is optional. Leave blank for MVP text-only gating tests.
+
+export const LESSON1 = [
+
   {
     id: "seg1",
     title: "Spoken Overview",
     gate: "When you’re ready, say Next to continue.",
     audioUrl: "", // optional
     transcript: "Welcome.
-
 You have signed up for this tutorial because you recognize that we are living through a fundamental shift in human capability. You want to understand that shift, you want to upskill yourself, and I am here to help you do so. 
 
 For the first time in history, intelligence itself has become interactive. Artificial intelligence systems respond not just to instructions, but to purpose of the instructions. This uses AI to amplify and enhance your capabilities. 
