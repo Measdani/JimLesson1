@@ -98,12 +98,40 @@ const btnAsk = document.getElementById("btnAsk");
 const btnNext = document.getElementById("btnNext");
 
 const qModal = document.getElementById("qModal");
+const respPrompt = document.getElementById("respPrompt");
+const respContinue = document.getElementById("respContinue");
+
 const qText = document.getElementById("qText");
 const btnSend = document.getElementById("btnSend");
 const btnClose = document.getElementById("btnClose");
 const answerText = document.getElementById("answerText");
 const btnMic = document.getElementById("btnMic");
 
+let flowIndex = 0;
+function playFlowItem() {
+  const s = LESSON1[idx];
+  const item = s.flow?.[flowIndex];
+
+  if (!item) {
+    enterGate(); // done with this segment
+    return;
+  }
+
+  if (item.type === "audio") {
+    audio.src = item.src;
+    audio.load();
+    audio.play().catch(() => {});
+    return;
+  }
+
+  if (item.type === "prompt") {
+    stopTTS();
+    audio.pause();
+
+    respPrompt.textContent = item.text;
+    respModal.classList.remove("hidden");
+  }
+}
 
 
 function renderProgress() {
@@ -151,12 +179,13 @@ function enterGate() {
 // --- Controls ---
 btnPlay.onclick = () => {
   const s = LESSON1[idx];
-  if (isUsingAudio()) {
-    audio.play().catch(() => {});
-  } else {
-    speakText(s.transcript);
+
+  // If this segment uses flow (interactive)
+  if (s.flow && Array.isArray(s.flow)) {
+    flowIndex = 0;
+    playFlowItem();
+    return;
   }
-};
 
 btnPause.onclick = () => {
   if (isUsingAudio()) {
@@ -224,6 +253,13 @@ btnSend.onclick = async () => {
     return;
   }
 
+  respContinue.onclick = () => {
+  respModal.classList.add("hidden");
+  flowIndex += 1;
+  playFlowItem();
+};
+
+
   // Minimal lesson context (segment title only)
 
   const payload = {
@@ -245,10 +281,13 @@ btnSend.onclick = async () => {
 btnMic.onclick = () => startListening();
 
 
-
 audio.addEventListener("ended", () => {
-  enterGate();
+  flowIndex += 1;
+  playFlowItem();
 });
+
 
 // Start at segment 1
 loadSegment(0);
+flowIndex = 0;
+}

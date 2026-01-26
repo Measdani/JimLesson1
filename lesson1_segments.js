@@ -48,19 +48,37 @@ For these demonstrations, you will need to open your favorite AI program – suc
 `
   },
   {
-    id: "seg3",
-    title: "Demonstration 1 — Articulation of Intent",
-    gate: "That concludes the first demonstration. Say Next to continue.",
-    audioUrl: "seg3.mp3",
-    transcript: `Demonstration 1 — Articulation of Intent
+
+  id: "seg3",
+  title: "Demonstration 1 — Articulation of Intent",
+  gate: "That concludes the first demonstration. Say Next to continue.",
+  transcript: `Demonstration 1 — Articulation of Intent
 Let’s begin with a simple example.
 Call up your favorite AI system: “Explain climate change.”
 That request contains almost no articulated intent. As a result, the response will necessarily be broad, generic, and unfocused. The system cannot infer what matters to you.
 Now enter this inquiry:
 “Explain the primary mechanisms driving climate change, focusing on energy balance and greenhouse gases, in language suitable for a technically literate but non-specialist audience.”
 Nothing about the AI has changed. What changed is the articulation of intent; you wanted to know the mechanism of Climate Change in a way the you or anyone you spoke to about it would understand. This outcome becomes aligned with purpose because you specified what mattered. 
-`
-  },
+`,
+  flow: [
+    { type: "audio", src: "seg3_firsthalf" },
+
+    { 
+      type: "prompt", 
+      text: "Pause here and complete the exercise. When you’re ready, click Continue." 
+    },
+
+    { type: "audio", src: "seg3_secondhalf" },
+
+    { 
+      type: "prompt", 
+      text: "Apply what you just learned. Click Continue when finished." 
+    },
+
+    { type: "audio", src: "seg3_thirds" }
+  ]
+},
+
   {
     id: "seg4",
     title: "Demonstration 2 — Context, Clarity, Constraints",
