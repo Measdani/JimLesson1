@@ -61,21 +61,21 @@ Now enter this inquiry:
 Nothing about the AI has changed. What changed is the articulation of intent; you wanted to know the mechanism of Climate Change in a way the you or anyone you spoke to about it would understand. This outcome becomes aligned with purpose because you specified what mattered. 
 `,
   flow: [
-    { type: "audio", src: "seg3_firsthalf" },
+    { type: "audio", src: "seg3_firsthalf.mp3" },
 
     { 
       type: "prompt", 
       text: "Pause here and complete the exercise. When you’re ready, click Continue." 
     },
 
-    { type: "audio", src: "seg3_secondhalf" },
+    { type: "audio", src: "seg3_secondhalf.mp3" },
 
     { 
       type: "prompt", 
       text: "Apply what you just learned. Click Continue when finished." 
     },
 
-    { type: "audio", src: "seg3_thirds" }
+    { type: "audio", src: "seg3_thirds.mp3" }
   ]
 },
 
