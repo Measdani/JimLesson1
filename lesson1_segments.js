@@ -5,7 +5,7 @@ export const LESSON1 = [
   {
     id: "seg1",
     title: "Spoken Overview",
-    gate: "When you’re ready, say Next to continue.",
+    gate: "When you’re ready, Click Next to continue.",
     audioUrl: "seg1.mp3", // optional
     transcript: `Welcome.
 You have signed up for this tutorial because you recognize that we are living through a fundamental shift in human capability. You want to understand that shift, you want to upskill yourself, and I am here to help you do so. 
@@ -26,7 +26,7 @@ It is well-understood that AI can be used to automate tasks, making existing wor
   {
     id: "seg2",
     title: "Spoken Learning Objectives",
-    gate: "These objectives will guide everything that follows. Say Next when you’re ready to see how they work in practice.",
+    gate: "These objectives will guide everything that follows. Click Next when you’re ready to see how they work in practice.",
     audioUrl: "seg2.mp3",
     transcript: `As I list the objectives keep in mind that the valuable outcomes result from expanding your thoughts.
 
@@ -51,7 +51,7 @@ For these demonstrations, you will need to open your favorite AI program – suc
 
   id: "seg3",
   title: "Demonstration 1 — Articulation of Intent",
-  gate: "That concludes the first demonstration. Say Next to continue.",
+  gate: "That concludes the first demonstration. Click Next to continue.",
   transcript: `Demonstration 1 — Articulation of Intent
 Let’s begin with a simple example.
 Call up your favorite AI system: “Explain climate change.”
@@ -82,7 +82,7 @@ Nothing about the AI has changed. What changed is the articulation of intent; yo
   {
     id: "seg4",
     title: "Demonstration 2 — Context, Clarity, Constraints",
-    gate: "This demonstration shows how structure changes outcomes. Say Next to continue.",
+    gate: "This demonstration shows how structure changes outcomes. Click Next to continue.",
     audioUrl: "seg4.mp3",
     transcript: `Demonstration 2 — Context, Clarity, and Constraints Change Outcomes 
 Next, consider this question:
@@ -96,7 +96,7 @@ By adding context, clarifying the concern, and constraining the reasoning space,
   {
     id: "seg5",
     title: "Demonstration 3 — AI Mirrors Inquiry Quality",
-    gate: "Notice how the depth of the question shaped the result. Say Next when you’re ready.",
+    gate: "Notice how the depth of the question shaped the result. Click Next when you’re ready.",
     audioUrl: "seg5.mp3",
     transcript: `Demonstration 3 — AI Mirrors Inquiry Quality
 For this demonstration, select a short article or opinion piece from a newspaper or magazine, and provide it to your AI.
@@ -112,7 +112,7 @@ AI mirrors the level of thinking it is given.
   {
     id: "seg6",
     title: "Demonstration 4 — Automation vs Cognitive Expansion",
-    gate: "This distinction matters more than speed. Say Next to continue.",
+    gate: "This distinction matters more than speed. Click Next to continue.",
     audioUrl: "seg6.mp3",
     transcript: `Demonstration 4 — Automation Versus Cognitive Expansion
 Now find a writing you have produced. This can be an email, a memo, or a report. To be most effective it should be at least 100 words. 
@@ -127,7 +127,7 @@ Here, the system explores alternatives you may not have considered, and will put
   {
     id: "seg7",
     title: "Demonstration 5 — Structured vs Unstructured Thinking",
-    gate: "That completes the demonstrations for this lesson. Say Next to reflect on what matters most.",
+    gate: "That completes the demonstrations for this lesson. Click Next to reflect on what matters most.",
     audioUrl: "seg7.mp3",
     transcript: `Demonstration 5 — Structured Versus Unstructured Thinking
 Finally, consider this question:
@@ -143,7 +143,7 @@ With these examples in mind, we can now step back and extract the key insights t
   {
     id: "seg8",
     title: "Spoken Key Insights",
-    gate: "These insights will recur throughout the course. Say Next to conclude the lesson.",
+    gate: "These insights will recur throughout the course. Click Next to conclude the lesson.",
     audioUrl: "seg8.mp3",
     transcript: `Let’s pause and extract what actually matters from these demonstrations.
 First, artificial intelligence does not create direction. It amplifies the direction it is given. The system did not become more intelligent in any of these examples. The outcomes improved because the inquiries became more precise.
