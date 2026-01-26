@@ -100,6 +100,8 @@ const btnNext = document.getElementById("btnNext");
 const qModal = document.getElementById("qModal");
 const respPrompt = document.getElementById("respPrompt");
 const respContinue = document.getElementById("respContinue");
+const respModal = document.getElementById("respModal");
+
 
 const qText = document.getElementById("qText");
 const btnSend = document.getElementById("btnSend");
@@ -185,7 +187,7 @@ btnPlay.onclick = () => {
     flowIndex = 0;
     playFlowItem();
     return;
-  }
+  };
 
 btnPause.onclick = () => {
   if (isUsingAudio()) {
@@ -282,9 +284,17 @@ btnMic.onclick = () => startListening();
 
 
 audio.addEventListener("ended", () => {
-  flowIndex += 1;
-  playFlowItem();
+  const s = LESSON1[idx];
+
+  if (s.flow && Array.isArray(s.flow)) {
+    flowIndex += 1;
+    playFlowItem();
+  } else {
+    enterGate();
+  }
 });
+
+
 
 
 // Start at segment 1
