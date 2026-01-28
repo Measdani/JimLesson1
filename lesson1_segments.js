@@ -6,7 +6,7 @@ export const LESSON1 = [
     id: "seg1",
     title: "Spoken Overview",
     gate: "When you’re ready, Click Next to continue.",
-    audioUrl: "./audio/seg1.mp3", // optional
+    audioUrl: "/audio/seg1.mp3", // optional
     transcript: `Welcome.
 You have signed up for this tutorial because you recognize that we are living through a fundamental shift in human capability. You want to understand that shift, you want to upskill yourself, and I am here to help you do so. 
 
@@ -27,7 +27,7 @@ It is well-understood that AI can be used to automate tasks, making existing wor
     id: "seg2",
     title: "Spoken Learning Objectives",
     gate: "These objectives will guide everything that follows. Click Next when you’re ready to see how they work in practice.",
-    audioUrl: "./audio/seg2.mp3",
+    audioUrl: "/audio/seg2.mp3",
     transcript: `As I list the objectives keep in mind that the valuable outcomes result from expanding your thoughts.
 
 First, you will recognize that your leverage with AI depends on your ability to articulate intent. Always ask yourself, ‘what is my purpose in asking AI?’ The system responds to what you express, and results are shaped by how precisely you define what you are trying to accomplish.
@@ -61,21 +61,21 @@ Now enter this inquiry:
 Nothing about the AI has changed. What changed is the articulation of intent; you wanted to know the mechanism of Climate Change in a way the you or anyone you spoke to about it would understand. This outcome becomes aligned with purpose because you specified what mattered. 
 `,
   flow: [
-    { type: "audio", src: "./audio/seg3_firsthalf.mp3" },
+    { type: "audio", src: "/audio/seg3_firsthalf.mp3" },
 
     { 
       type: "prompt", 
       text: "Pause here and complete the exercise. When you’re ready, click Continue." 
     },
 
-    { type: "audio", src: "./audio/seg3_secondhalf.mp3" },
+    { type: "audio", src: "/audio/seg3_secondhalf.mp3" },
 
     { 
       type: "prompt", 
       text: "Apply what you just learned. Click Continue when finished." 
     },
 
-    { type: "audio", src: "./audio/seg3_thirds.mp3" }
+    { type: "audio", src: "/audio/seg3_thirds.mp3" }
   ]
 },
 
@@ -83,7 +83,7 @@ Nothing about the AI has changed. What changed is the articulation of intent; yo
     id: "seg4",
     title: "Demonstration 2 — Context, Clarity, Constraints",
     gate: "This demonstration shows how structure changes outcomes. Click Next to continue.",
-    audioUrl: "./audio/seg4.mp3",
+    audioUrl: "/audio/seg4.mp3",
     transcript: `Demonstration 2 — Context, Clarity, and Constraints Change Outcomes 
 Next, consider this question:
 “Is world population going to be a problem in the future?”
@@ -97,7 +97,7 @@ By adding context, clarifying the concern, and constraining the reasoning space,
     id: "seg5",
     title: "Demonstration 3 — AI Mirrors Inquiry Quality",
     gate: "Notice how the depth of the question shaped the result. Click Next when you’re ready.",
-    audioUrl: "./audio/seg5.mp3",
+    audioUrl: "/audio/seg5.mp3",
     transcript: `Demonstration 3 — AI Mirrors Inquiry Quality
 For this demonstration, select a short article or opinion piece from a newspaper or magazine, and provide it to your AI.
 If you ask:
@@ -113,7 +113,7 @@ AI mirrors the level of thinking it is given.
     id: "seg6",
     title: "Demonstration 4 — Automation vs Cognitive Expansion",
     gate: "This distinction matters more than speed. Click Next to continue.",
-    audioUrl: "./audio/seg6.mp3",
+    audioUrl: "/audio/seg6.mp3",
     transcript: `Demonstration 4 — Automation Versus Cognitive Expansion
 Now find a writing you have produced. This can be an email, a memo, or a report. To be most effective it should be at least 100 words. 
 If you ask:
@@ -128,7 +128,7 @@ Here, the system explores alternatives you may not have considered, and will put
     id: "seg7",
     title: "Demonstration 5 — Structured vs Unstructured Thinking",
     gate: "That completes the demonstrations for this lesson. Click Next to reflect on what matters most.",
-    audioUrl: "./audio/seg7.mp3",
+    audioUrl: "/audio/seg7.mp3",
     transcript: `Demonstration 5 — Structured Versus Unstructured Thinking
 Finally, consider this question:
 “How should a professional-services business use AI?”
@@ -144,7 +144,7 @@ With these examples in mind, we can now step back and extract the key insights t
     id: "seg8",
     title: "Spoken Key Insights",
     gate: "These insights will recur throughout the course. Click Next to conclude the lesson.",
-    audioUrl: "./audio/seg8.mp3",
+    audioUrl: "/audio/seg8.mp3",
     transcript: `Let’s pause and extract what actually matters from these demonstrations.
 First, artificial intelligence does not create direction. It amplifies the direction it is given. The system did not become more intelligent in any of these examples. The outcomes improved because the inquiries became more precise.
 Second, the quality of results is governed by the quality of inquiry. Vague prompts produce diffuse and generic responses. Structured prompts produce focused, useful reasoning. The limiting factor is not access to information or computing power, but articulation of thought in your inquiry.
@@ -158,7 +158,7 @@ These insights are not tied to any specific tool or moment in time. They describ
     id: "seg9",
     title: "Spoken Lesson Summary",
     gate: "This lesson is complete. You may exit the lesson or revisit any section.",
-    audioUrl: "./audio/seg9.mp3",
+    audioUrl: "/audio/seg9.mp3",
     transcript: `You have seen that artificial intelligence is not an independent source of judgment or purpose. It is an amplifier of human intent. The human remains the directing intelligence in every interaction.
 You have seen that access to knowledge is no longer scarce. What determines outcomes is how clearly intent is articulated. Vague inquiries produce diffuse results. Structured inquiries produce focused, useful responses.
 You have learned that effective inquiry has an architecture. Context situates the problem. Clarity defines the objective. Constraints focus reasoning. Together, they convert generalities into specific intelligence.
