@@ -14,38 +14,28 @@ function hasFlow(seg) {
 
 function resetFlow() {
   flowIndex = 0;
-  respModal.classList.add("hidden");
+    if (respModal) respModal.classList.add("hidden");
 }
 
 function playFlowItem() {
   const s = LESSON1[idx];
-  const item = s.flow[flowIndex];
-
-  console.log("playFlowItem", s.id, flowIndex, item);
+  const item = s.flow?.[flowIndex];
 
   if (!item) {
-    // finished flow -> unlock Next
-    enterGate();
+    enterGate(); // done with this segment
     return;
   }
 
   if (item.type === "audio") {
     respModal.classList.add("hidden");
-
-    audio.src = item.src;   // must include .mp3
+    audio.src = item.src;
     audio.currentTime = 0;
     audio.load();
-
-    audio.play().catch((e) => {
-      console.error("audio.play failed", e);
-      gateBox.textContent = "Audio could not play. Check the file path: " + audio.src;
-    });
-
+    audio.play().catch(() => {});
     return;
   }
 
   if (item.type === "prompt") {
-    // stop any playback
     stopTTS();
     audio.pause();
 
@@ -54,6 +44,7 @@ function playFlowItem() {
     return;
   }
 }
+
 
 
 
@@ -157,37 +148,6 @@ const btnSend = document.getElementById("btnSend");
 const btnClose = document.getElementById("btnClose");
 const answerText = document.getElementById("answerText");
 const btnMic = document.getElementById("btnMic");
-
-respContinue.onclick = () => {
-  respModal.classList.add("hidden");
-  flowIndex += 1;
-  playFlowItem();
-};
-
-
-
-
-
-  if (!item) {
-    enterGate(); // done with this segment
-    return;
-  }
-
-  if (item.type === "audio") {
-    audio.src = item.src;
-    audio.load();
-    audio.play().catch(() => {});
-    return;
-  }
-
-  if (item.type === "prompt") {
-    stopTTS();
-    audio.pause();
-
-    respPrompt.textContent = item.text;
-    respModal.classList.remove("hidden");
-  }
-
 
 
 function renderProgress() {
