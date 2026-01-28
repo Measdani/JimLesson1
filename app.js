@@ -182,12 +182,21 @@ function enterGate() {
 btnPlay.onclick = () => {
   const s = LESSON1[idx];
 
-  // If this segment uses flow (interactive)
+  // Flow (interactive) segments
   if (s.flow && Array.isArray(s.flow)) {
     flowIndex = 0;
     playFlowItem();
     return;
-  };
+  }
+
+  // Normal audio segments
+  if (isUsingAudio()) {
+    audio.play().catch(() => {});
+  } else {
+    speakText(s.transcript);
+  }
+};
+
 
 btnPause.onclick = () => {
   if (isUsingAudio()) {
@@ -249,20 +258,12 @@ btnClose.onclick = () => {
 
 btnSend.onclick = async () => {
   answerText.textContent = "Thinking...";
+
   const question = qText.value.trim();
   if (!question) {
     answerText.textContent = "Please type a question.";
     return;
   }
-
-  respContinue.onclick = () => {
-  respModal.classList.add("hidden");
-  flowIndex += 1;
-  playFlowItem();
-};
-
-
-  // Minimal lesson context (segment title only)
 
   const payload = {
     lesson: "Lesson 1",
@@ -270,15 +271,26 @@ btnSend.onclick = async () => {
     question
   };
 
-  const res = await fetch("/api/ask", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload)
-  });
+  try {
+    const res = await fetch("/api/ask", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
 
-  const data = await res.json();
-  answerText.textContent = data.answer || JSON.stringify(data, null, 2);
+    const data = await res.json();
+    answerText.textContent = data.answer || JSON.stringify(data, null, 2);
+  } catch (err) {
+    answerText.textContent = "Error contacting /api/ask. (This is expected unless you built that endpoint.)";
+    console.error(err);
+  }
 };
+respContinue.onclick = () => {
+  respModal.classList.add("hidden");
+  flowIndex += 1;
+  playFlowItem();
+};
+
 
 btnMic.onclick = () => startListening();
 
@@ -300,4 +312,3 @@ audio.addEventListener("ended", () => {
 // Start at segment 1
 loadSegment(0);
 flowIndex = 0;
-}
