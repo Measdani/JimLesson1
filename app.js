@@ -6,6 +6,55 @@ let idx = 0;
 let inGate = false;
 let pausedAt = 0;
 
+let flowIndex = 0;
+
+function hasFlow(seg) {
+  return !!(seg.flow && Array.isArray(seg.flow) && seg.flow.length);
+}
+
+function resetFlow() {
+  flowIndex = 0;
+  respModal.classList.add("hidden");
+}
+
+function playFlowItem() {
+  const s = LESSON1[idx];
+  const item = s.flow[flowIndex];
+
+  console.log("playFlowItem", s.id, flowIndex, item);
+
+  if (!item) {
+    // finished flow -> unlock Next
+    enterGate();
+    return;
+  }
+
+  if (item.type === "audio") {
+    respModal.classList.add("hidden");
+
+    audio.src = item.src;   // must include .mp3
+    audio.currentTime = 0;
+    audio.load();
+
+    audio.play().catch((e) => {
+      console.error("audio.play failed", e);
+      gateBox.textContent = "Audio could not play. Check the file path: " + audio.src;
+    });
+
+    return;
+  }
+
+  if (item.type === "prompt") {
+    // stop any playback
+    stopTTS();
+    audio.pause();
+
+    respPrompt.textContent = item.text;
+    respModal.classList.remove("hidden");
+    return;
+  }
+}
+
 
 
 let ttsUtterance = null;
@@ -109,10 +158,15 @@ const btnClose = document.getElementById("btnClose");
 const answerText = document.getElementById("answerText");
 const btnMic = document.getElementById("btnMic");
 
-let flowIndex = 0;
-function playFlowItem() {
-  const s = LESSON1[idx];
-  const item = s.flow?.[flowIndex];
+respContinue.onclick = () => {
+  respModal.classList.add("hidden");
+  flowIndex += 1;
+  playFlowItem();
+};
+
+
+
+
 
   if (!item) {
     enterGate(); // done with this segment
@@ -133,7 +187,7 @@ function playFlowItem() {
     respPrompt.textContent = item.text;
     respModal.classList.remove("hidden");
   }
-}
+
 
 
 function renderProgress() {
@@ -152,9 +206,12 @@ setupSTT();
 function loadSegment(i) {
   stopTTS();
   audio.pause();
+  audio.removeAttribute("src");
+  audio.load();
 
   idx = i;
   const s = LESSON1[idx];
+
   segTitle.textContent = `${idx + 1}. ${s.title}`;
   transcript.textContent = s.transcript || "";
   gateBox.textContent = "";
@@ -163,14 +220,17 @@ function loadSegment(i) {
   btnNext.disabled = true;
   renderProgress();
 
-  if (isUsingAudio()) {
+  // Reset flow UI whenever we change segments
+  respModal.classList.add("hidden");
+  flowIndex = 0;
+
+  // Only preload audio for non-flow segments
+  if (!hasFlow(s) && isUsingAudio()) {
     audio.src = s.audioUrl;
     audio.load();
-  } else {
-    audio.removeAttribute("src");
-    // don't auto-enter gate; gate will open when TTS finishes (or you can allow immediately)
   }
 }
+
 
 
 function enterGate() {
@@ -181,21 +241,21 @@ function enterGate() {
 // --- Controls ---
 btnPlay.onclick = () => {
   const s = LESSON1[idx];
+  console.log("Play clicked", s.id);
 
-  // Flow (interactive) segments
-  if (s.flow && Array.isArray(s.flow)) {
-    flowIndex = 0;
+  if (hasFlow(s)) {
+    resetFlow();
     playFlowItem();
     return;
   }
 
-  // Normal audio segments
   if (isUsingAudio()) {
-    audio.play().catch(() => {});
+    audio.play().catch((e) => console.error(e));
   } else {
     speakText(s.transcript);
   }
 };
+
 
 
 btnPause.onclick = () => {
@@ -298,7 +358,7 @@ btnMic.onclick = () => startListening();
 audio.addEventListener("ended", () => {
   const s = LESSON1[idx];
 
-  if (s.flow && Array.isArray(s.flow)) {
+  if (hasFlow(s)) {
     flowIndex += 1;
     playFlowItem();
   } else {
@@ -306,7 +366,10 @@ audio.addEventListener("ended", () => {
   }
 });
 
-
+audio.addEventListener("error", () => {
+  console.error("Audio failed:", audio.src);
+  gateBox.textContent = "Audio missing or wrong path: " + audio.src;
+});
 
 
 // Start at segment 1
