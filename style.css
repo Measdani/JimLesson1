@@ -22,3 +22,126 @@ textarea { width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #cc
   filter: brightness(0.95);
 }
 
+/* --- Modern polish (keep your light theme) --- */
+
+/* nicer page background + spacing */
+body{
+  background: linear-gradient(180deg, #f7f8ff 0%, #f6f6f6 35%, #f3f4f6 100%);
+  color: #111827;
+}
+
+/* make the header feel intentional */
+.wrap h1{
+  font-size: 28px;
+  letter-spacing: -0.02em;
+  margin: 10px 0 16px;
+}
+
+/* panel/card upgrade */
+.panel{
+  border: 1px solid rgba(17,24,39,0.08);
+  box-shadow: 0 10px 30px rgba(17,24,39,0.10);
+  border-radius: 14px;
+}
+
+/* improve layout behavior on smaller screens */
+.row{
+  align-items: flex-start;
+}
+@media (max-width: 900px){
+  .row{ flex-direction: column; }
+  .side{ width: 100%; }
+}
+
+/* audio looks nicer */
+audio{
+  width: 100%;
+  margin: 8px 0 12px;
+}
+
+/* button system */
+button{
+  border: 1px solid rgba(17,24,39,0.15);
+  background: #ffffff;
+  color: #111827;
+  font-weight: 600;
+  transition: transform .05s ease, box-shadow .15s ease, background .15s ease, border-color .15s ease;
+}
+button:hover{
+  border-color: rgba(17,24,39,0.25);
+  box-shadow: 0 6px 18px rgba(17,24,39,0.08);
+}
+button:active{
+  transform: translateY(1px);
+}
+
+/* make Play/Next feel primary */
+#btnPlay, #btnNext{
+  background: #2563eb;
+  border-color: #2563eb;
+  color: #fff;
+}
+#btnPlay:hover, #btnNext:hover{
+  filter: brightness(0.96);
+}
+
+/* Keep your pause red (already good) but match style */
+#btnPause{
+  box-shadow: 0 6px 18px rgba(229,57,53,0.18);
+}
+
+/* Gate box looks more “system message” */
+.gate{
+  background: #eef2ff;
+  border-color: #c7d2fe;
+  color: #1f2937;
+  border-radius: 12px;
+}
+
+/* transcript + answer cards */
+.transcript pre, .answer pre{
+  background: #f8fafc;
+  border: 1px solid rgba(17,24,39,0.08);
+  line-height: 1.55;
+  font-size: 13.5px;
+}
+
+/* progress area card feel */
+.side{
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 14px;
+  border: 1px solid rgba(17,24,39,0.08);
+  box-shadow: 0 10px 24px rgba(17,24,39,0.06);
+}
+
+/* modal upgrade */
+.modal{
+  background: rgba(17,24,39,0.55);
+  backdrop-filter: blur(6px);
+}
+.modalContent{
+  border-radius: 14px;
+  box-shadow: 0 20px 60px rgba(17,24,39,0.25);
+  border: 1px solid rgba(17,24,39,0.08);
+}
+
+/* textarea polish */
+textarea{
+  background: #fff;
+  border: 1px solid rgba(17,24,39,0.18);
+}
+textarea:focus{
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 4px rgba(37,99,235,0.15);
+}
+#progress li{
+  margin: 6px 0;
+  padding: 6px 8px;
+  border-radius: 10px;
+}
+#progress li.active{
+  background: #eef2ff;
+  border: 1px solid #c7d2fe;
+}

@@ -175,7 +175,7 @@ function renderProgress() {
     const li = document.createElement("li");
     li.textContent = (i === idx ? "▶ " : "") + s.title;
     progress.appendChild(li);
-
+li.className = (i === idx) ? "active" : "";
   });
 }
 
