@@ -8,6 +8,7 @@ export const LESSON1 = [
     gate: "When you’re ready, Click Next to continue.",
     audioUrl: "./seg1.mp3", // optional
     transcript: `Welcome.
+    
 You have signed up for this tutorial because you recognize that we are living through a fundamental shift in human capability. You want to understand that shift, you want to upskill yourself, and I am here to help you do so. 
 
 For the first time in history, intelligence itself has become interactive. Artificial intelligence systems respond not just to instructions, but to purpose of the instructions. This uses AI to amplify and enhance your capabilities. 
