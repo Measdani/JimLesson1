@@ -398,7 +398,7 @@ btnAIAsk.onclick = () => {
   const q = aiQuery.value.trim();
 
   if (!q) {
-    aiResponse.textContent = "Type a question to explore the lesson.";
+    aiResponse.textContent = "Server missing OPENAI_API_KEY";
     return;
   }
 

@@ -141,7 +141,39 @@ textarea:focus{
   padding: 6px 8px;
   border-radius: 10px;
 }
+.side {
+  font-size: 14px;
+}
+
+.side h3 {
+  font-size: 16px;
+}
+
 #progress li.active{
   background: #eef2ff;
   border: 1px solid #c7d2fe;
+}
+.aiBox {
+  background: #f8fafc;
+  border-left: 4px solid #3b82f6;
+  padding: 14px;
+  border-radius: 10px;
+  margin-top: 16px;
+}
+
+.aiBox h3 {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.aiSub {
+  font-size: 13px;
+  color: #64748b;
+}
+.sectionLabel {
+  margin-top: 20px;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #94a3b8;
 }
