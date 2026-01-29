@@ -96,21 +96,21 @@ By adding context, clarifying the concern, and constraining the reasoning space,
 `,
 
   flow: [
-    { type: "audio", src: "./audio/seg4_firsthalf.mp3" },
+    { type: "audio", src: "./seg4_firsthalf.mp3" },
 
     {
       type: "gate",
       text: "Run the first prompt. When you’re ready, click Next to continue."
     },
 
-    { type: "audio", src: "./audio/seg4_secondhalf.mp3" },
+    { type: "audio", src: "./seg4_secondhalf.mp3" },
 
     {
       type: "gate",
       text: "Now run the structured prompt. When you’re ready, click Next to continue."
     },
 
-    { type: "audio", src: "./audio/seg4_thirds.mp3" }
+    { type: "audio", src: "./seg4_thirds.mp3" }
   ]
 },
 
