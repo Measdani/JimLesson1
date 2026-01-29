@@ -7,6 +7,8 @@ let inGate = false;
 let pausedAt = 0;
 
 let flowIndex = 0;
+let nextMode = "segment"; // "flow" or "segment"
+
 
 function hasFlow(seg) {
   return !!(seg.flow && Array.isArray(seg.flow) && seg.flow.length);
@@ -21,13 +23,23 @@ function playFlowItem() {
   const s = LESSON1[idx];
   const item = s.flow?.[flowIndex];
 
-  if (!item) {
-    enterGate(); // done with this segment
-    return;
-  }
+if (!item) {
+  nextMode = "segment";   // we are DONE with flow
+  enterGate();            // unlock Next for segment navigation
+  return;
+}
+
 
   if (item.type === "audio") {
+nextMode = "flow";
+inGate = false;
+btnNext.disabled = true;
+
+
+
     respModal.classList.add("hidden");
+
+
     audio.src = item.src;
     audio.currentTime = 0;
     audio.load();
@@ -42,6 +54,8 @@ function playFlowItem() {
   gateBox.textContent = item.text;
   inGate = true;
   btnNext.disabled = false;
+
+nextMode = "flow";
 
   return;
 }
