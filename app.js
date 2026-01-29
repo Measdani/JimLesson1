@@ -47,18 +47,18 @@ btnNext.disabled = true;
     return;
   }
 
- if (item.type === "gate") {
+if (item.type === "gate") {
   stopTTS();
   audio.pause();
 
-  gateBox.textContent = item.text;
+  nextMode = "flow";      // important
   inGate = true;
   btnNext.disabled = false;
 
-nextMode = "flow";
-
+  gateBox.textContent = item.text;
   return;
 }
+
 
 }
 
@@ -280,13 +280,30 @@ btnBack.onclick = () => {
 
 
 btnNext.onclick = () => {
+  // If we're inside a FLOW gate, Next should advance the flow
+  if (nextMode === "flow") {
+    if (!inGate) return; // only allow Next when the gate is open
+
+    // close gate + move to next flow item
+    inGate = false;
+    btnNext.disabled = true;
+    gateBox.textContent = "";
+
+    flowIndex += 1;
+    playFlowItem();
+    return;
+  }
+
+  // Otherwise, normal segment navigation
   if (!inGate) return;
+
   stopTTS();
   audio.pause();
 
   if (idx < LESSON1.length - 1) loadSegment(idx + 1);
   else gateBox.textContent = "Lesson complete.";
 };
+
 
 btnAsk.onclick = () => {
   // pause whichever mode is active
@@ -348,11 +365,7 @@ btnSend.onclick = async () => {
     console.error(err);
   }
 };
-respContinue.onclick = () => {
-  respModal.classList.add("hidden");
-  flowIndex += 1;
-  playFlowItem();
-};
+
 
 
 btnMic.onclick = () => startListening();
