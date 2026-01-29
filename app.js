@@ -389,21 +389,29 @@ audio.addEventListener("error", () => {
   console.error("Audio failed:", audio.src);
   gateBox.textContent = "Audio missing or wrong path: " + audio.src;
 });
-
 const aiInput = document.getElementById("aiInput");
 const aiBtn = document.getElementById("aiBtn");
-const aiResponse = document.getElementById("aiResponse");
+const aiOutput = document.getElementById("aiOutput");
 
-btnAIAsk.onclick = () => {
-  const q = aiQuery.value.trim();
+aiBtn.onclick = () => {
+  const q = aiInput.value.trim();
 
   if (!q) {
-    aiResponse.textContent = "Server missing OPENAI_API_KEY";
+    aiOutput.classList.remove("hidden");
+    aiOutput.textContent = "Type a question to explore this lesson.";
     return;
   }
 
   // Placeholder until API is live
-  aiResponse.textContent =
+  aiOutput.classList.remove("hidden");
+  aiOutput.textContent =
+    "AI Workspace is coming online soon.\n\nYou’ll be able to explore ideas directly here without leaving the lesson.";
+};
+
+
+
+
+
 `AI Workspace is coming online soon.
 
 For now, use this space to:
@@ -412,7 +420,6 @@ For now, use this space to:
 • Note what you’re testing or exploring
 
 Once enabled, this AI will respond within the lesson context instead of sending you elsewhere.`;
-};
 
 
 // Start at segment 1
