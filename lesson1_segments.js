@@ -85,7 +85,6 @@ flow: [
     id: "seg4",
     title: "Demonstration 2 — Context, Clarity, Constraints",
     gate: "This demonstration shows how structure changes outcomes. Click Next to continue.",
-    
     transcript: `Demonstration 2 — Context, Clarity, and Constraints Change Outcomes 
 Next, consider this question:
 “Is world population going to be a problem in the future?”
@@ -119,7 +118,6 @@ By adding context, clarifying the concern, and constraining the reasoning space,
     id: "seg5",
     title: "Demonstration 3 — AI Mirrors Inquiry Quality",
     gate: "Notice how the depth of the question shaped the result. Click Next when you’re ready.",
-    audioUrl: "./seg5.mp3",
     transcript: `Demonstration 3 — AI Mirrors Inquiry Quality
 For this demonstration, select a short article or opinion piece from a newspaper or magazine, and provide it to your AI.
 If you ask:
@@ -129,8 +127,25 @@ Now ask:
 “Summarize this article in 200 words or fewer, then identify the central assumption it relies on and evaluate whether that assumption is justified.”
 The system now produces analysis rather than just paraphrase. This is not because it suddenly became more capable, but because you asked it to examine the assumptions underlying the article.
 AI mirrors the level of thinking it is given.
-`
-  },
+`,
+flow: [
+    { type: "audio", src: "./seg5_firsthalf.mp3" },
+
+    {
+      type: "gate",
+      text: "Run the first prompt. When you’re ready, click Next to continue."
+    },
+
+    { type: "audio", src: "./seg5_secondhalf.mp3" },
+
+    {
+      type: "gate",
+      text: "Now run the structured prompt. When you’re ready, click Next to continue."
+    },
+
+    { type: "audio", src: "./seg5_thirds.mp3" }
+  ]
+},
   {
     id: "seg6",
     title: "Demonstration 4 — Automation vs Cognitive Expansion",
