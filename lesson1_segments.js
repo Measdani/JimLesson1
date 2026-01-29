@@ -182,7 +182,6 @@ flow: [
     id: "seg7",
     title: "Demonstration 5 — Structured vs Unstructured Thinking",
     gate: "That completes the demonstrations for this lesson. Click Next to reflect on what matters most.",
-    audioUrl: "./seg7.mp3",
     transcript: `Demonstration 5 — Structured Versus Unstructured Thinking
 Finally, consider this question:
 “How should a professional-services business use AI?”
@@ -192,8 +191,26 @@ Now compare it to this:
 Structure transforms vague curiosity into an actionable framework. The difference lies in how the inquiry is framed, not in the AI itself.
 Across all five demonstrations, the lesson is the same. AI does not supply direction. It amplifies the direction it is given. When you change how you articulate intent, outcomes change immediately.
 With these examples in mind, we can now step back and extract the key insights that will guide your use of AI going forward.
-`
+`,
+flow: [
+    { type: "audio", src: "./seg7_firsthalf.mp3" },
+
+    {
+      type: "gate",
+      text: "Run the first prompt. When you’re ready, click Next to continue."
+    },
+
+    { type: "audio", src: "./seg7_secondhalf.mp3" },
+
+    {
+      type: "gate",
+      text: "Now run the structured prompt. When you’re ready, click Next to continue."
+    },
+
+    { type: "audio", src: "./seg7_thirds.mp3" }
+  ]
   },
+
   {
     id: "seg8",
     title: "Spoken Key Insights",
