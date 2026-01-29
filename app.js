@@ -390,6 +390,30 @@ audio.addEventListener("error", () => {
   gateBox.textContent = "Audio missing or wrong path: " + audio.src;
 });
 
+const aiQuery = document.getElementById("aiQuery");
+const btnAIAsk = document.getElementById("btnAIAsk");
+const aiResponse = document.getElementById("aiResponse");
+
+btnAIAsk.onclick = () => {
+  const q = aiQuery.value.trim();
+
+  if (!q) {
+    aiResponse.textContent = "Type a question to explore the lesson.";
+    return;
+  }
+
+  // Placeholder until API is live
+  aiResponse.textContent =
+`AI Workspace is coming online soon.
+
+For now, use this space to:
+• Write the question you would ask
+• Clarify your assumptions
+• Note what you’re testing or exploring
+
+Once enabled, this AI will respond within the lesson context instead of sending you elsewhere.`;
+};
+
 
 // Start at segment 1
 loadSegment(0);
