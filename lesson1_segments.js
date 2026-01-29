@@ -85,7 +85,7 @@ flow: [
     id: "seg4",
     title: "Demonstration 2 — Context, Clarity, Constraints",
     gate: "This demonstration shows how structure changes outcomes. Click Next to continue.",
-    audioUrl: "./seg4.mp3",
+    
     transcript: `Demonstration 2 — Context, Clarity, and Constraints Change Outcomes 
 Next, consider this question:
 “Is world population going to be a problem in the future?”
@@ -93,8 +93,28 @@ This question is vague. It lacks context and constraints, so any honest response
 When you have examined the output and are ready listen to the same inquiry, but deliberately structured.
 “Given potential future constraints on affordable energy and natural resources, and recognizing that birth rates tend to decline as societal wealth increases, is it plausible that global population growth will stabilize in a way that reduces long-term poverty and resource strain? Identify assumptions you have used in your response.”
 By adding context, clarifying the concern, and constraining the reasoning space, you force the system to think within a defined framework. The output becomes more coherent and more useful.
-`
-  },
+`,
+
+  flow: [
+    { type: "audio", src: "./audio/seg4_firsthalf.mp3" },
+
+    {
+      type: "gate",
+      text: "Run the first prompt. When you’re ready, click Next to continue."
+    },
+
+    { type: "audio", src: "./audio/seg4_secondhalf.mp3" },
+
+    {
+      type: "gate",
+      text: "Now run the structured prompt. When you’re ready, click Next to continue."
+    },
+
+    { type: "audio", src: "./audio/seg4_thirds.mp3" }
+  ]
+},
+
+  
   {
     id: "seg5",
     title: "Demonstration 3 — AI Mirrors Inquiry Quality",
