@@ -12,58 +12,52 @@
 
     <div class="panel">
       <div class="row">
-        <div class="col">
-          <h2 id="segTitle"></h2>
-          <audio id="audio" controls></audio>
+  <!-- LEFT: lesson -->
+  <div class="col">
+    <h2 id="segTitle"></h2>
+    <audio id="audio" controls></audio>
 
-          <div class="controls">
-              <button id="btnBack" class="btn">Back</button>
-    <button id="btnPlay" class="btn btn-primary">Play</button>
-    <button id="btnPause" class="btn btn-danger">Pause</button>
-    <button id="btnRepeat" class="btn">Repeat</button>
-    <button id="btnAsk" class="btn">Ask</button>
-    <button id="btnNext" class="btn btn-primary">Next</button>
+    <div class="controls">
+      <button id="btnBack" class="btn">Back</button>
+      <button id="btnPlay" class="btn btn-primary">Play</button>
+      <button id="btnPause" class="btn btn-danger">Pause</button>
+      <button id="btnRepeat" class="btn">Repeat</button>
+      <button id="btnAsk" class="btn">Ask</button>
+      <button id="btnNext" class="btn btn-primary">Next</button>
+    </div>
 
-          </div>
+    <div class="gate" id="gateBox"></div>
 
-          <div class="gate" id="gateBox"></div>
-
-          <div class="transcript">
-            <h3>Transcript</h3>
-            <pre id="transcript"></pre>
+    <div class="transcript">
+      <h3>Transcript</h3>
+      <pre id="transcript"></pre>
           </div>
         </div>
-        <p class="sectionLabel">Reflection & Exploration</p>
+      
+    <div class="col side">
+    <div class="aiWrap">
+      <div class="aiLabel">REFLECTION &amp; EXPLORATION</div>
 
-        <div class="aiBox">
-          <div class="col side">
+      <div class="aiCard">
+        <h3>Ask the AI (Lesson Workspace)</h3>
+        <textarea id="aiInput" rows="4"
+          placeholder="Ask a question about this lesson, test an idea, or explore an assumption..."></textarea>
 
-  <!-- Reflection & Exploration + AI box (moved above Progress) -->
-  <div class="aiWrap">
-    <div class="aiLabel">REFLECTION &amp; EXPLORATION</div>
+        <div class="controls">
+          <button id="aiBtn" class="btn">Ask AI</button>
+        </div>
 
-    <div class="aiCard">
-      <h3>Ask the AI (Lesson Workspace)</h3>
-      <textarea id="aiInput" rows="4" placeholder="Ask a question about this lesson, test an idea, or explore an assumption..."></textarea>
-      <div class="controls">
-        <button id="aiBtn">Ask AI</button>
-      </div>
-      <pre id="aiOutput" class="hidden"></pre>
+        <pre id="aiOutput" class="hidden"></pre>
     </div>
   </div>
 
   <!-- Progress stays below -->
   <h3>Progress</h3>
-  <ol id="progress"></ol>
+    <ol id="progress"></ol>
 
 </div>
 
-  <h3>Ask the AI (Lesson Workspace)</h3>
-  <textarea 
-    id="aiQuery"
-    rows="4"
-    placeholder="Ask a question about this lesson, test an idea, or explore an assumption…"
-  ></textarea>
+
 
   <div class="controls">
     <button id="btnAIAsk">Ask AI</button>
@@ -72,10 +66,7 @@
   <pre id="aiResponse"></pre>
 </div>
 
-        <div class="col side">
-          <h3>Progress</h3>
-          <ol id="progress"></ol>
-        </div>
+       
       </div>
     </div>
 

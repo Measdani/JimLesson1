@@ -177,22 +177,22 @@ textarea:focus{
   letter-spacing: 0.05em;
   color: #94a3b8;
 }
-.aiWrap { margin-bottom: 18px; }
+.aiWrap { margin-bottom: 16px; }
 
 .aiLabel{
   font-size: 12px;
   letter-spacing: .12em;
   text-transform: uppercase;
-  color: #94a3b8; /* soft gray-blue */
-  margin: 6px 0 10px;
+  color: #7a86a5; 
+  margin: 2px 0 10px;
 }
 
 /* AI card */
 .aiCard{
-  background: #f8fafc;
+  background: #fbfdff;
   border-radius: 14px;
   padding: 14px;
-  border: 1px solid #e5e7eb;
+  border: 1px solid #e6e9f2;
   position: relative;
   overflow: hidden;
 }
@@ -201,13 +201,13 @@ textarea:focus{
 .aiCard::before{
   content: "";
   position: absolute;
-  left: -18px;           /* pushes it out so you see just the curve */
-  top: 14px;
-  bottom: 14px;
-  width: 34px;
-  border-radius: 999px;
-  background: #2563eb;   /* blue */
-  opacity: .9;
+  left: -14px;           /* pushes it out so you see just the curve */
+  top: 18px;
+  bottom: 18px;
+  width: 26px;
+  border-radius: 18px;
+  background: #2f6df6;   /* blue */
+
 }
 
 /* Keep content above the decorative bar */

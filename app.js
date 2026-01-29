@@ -390,8 +390,8 @@ audio.addEventListener("error", () => {
   gateBox.textContent = "Audio missing or wrong path: " + audio.src;
 });
 
-const aiQuery = document.getElementById("aiQuery");
-const btnAIAsk = document.getElementById("btnAIAsk");
+const aiInput = document.getElementById("aiInput");
+const aiBtn = document.getElementById("aiBtn");
 const aiResponse = document.getElementById("aiResponse");
 
 btnAIAsk.onclick = () => {
