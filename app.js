@@ -320,6 +320,7 @@ btnAsk.onclick = () => {
 };
 
 btnClose.onclick = () => {
+    console.log("CLOSE clicked");
   qModal.classList.add("hidden");
 
   // resume only if we were mid-playback
@@ -337,6 +338,7 @@ btnClose.onclick = () => {
 };
 
 btnSend.onclick = async () => {
+  console.log("SEND clicked");
   answerText.textContent = "Thinking...";
 
   const question = qText.value.trim();
@@ -369,7 +371,8 @@ btnSend.onclick = async () => {
 
 
 btnMic.onclick = () => startListening();
-
+  console.log("MIC clicked");
+  startListening();
 
 audio.addEventListener("ended", () => {
   const s = LESSON1[idx];
