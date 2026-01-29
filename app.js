@@ -139,6 +139,8 @@ const btnPause = document.getElementById("btnPause");
 const btnRepeat = document.getElementById("btnRepeat");
 const btnAsk = document.getElementById("btnAsk");
 const btnNext = document.getElementById("btnNext");
+const btnBack = document.getElementById("btnBack");
+
 
 const qModal = document.getElementById("qModal");
 const respPrompt = document.getElementById("respPrompt");
@@ -171,6 +173,7 @@ function loadSegment(i) {
   audio.pause();
   audio.removeAttribute("src");
   audio.load();
+  
 
   idx = i;
   const s = LESSON1[idx];
@@ -180,6 +183,7 @@ function loadSegment(i) {
   gateBox.textContent = "";
   inGate = false;
 
+  btnBack.disabled = i === 0;
   btnNext.disabled = true;
   renderProgress();
 
@@ -238,6 +242,28 @@ btnRepeat.onclick = () => {
     speakText(s.transcript);
   }
 };
+
+btnBack.onclick = () => {
+  // Stop anything currently playing
+  stopTTS();
+  audio.pause();
+  audio.removeAttribute("src");
+  audio.load();
+
+  // Hide any active prompts/modals
+  respModal.classList.add("hidden");
+  qModal.classList.add("hidden");
+
+  // Reset flow state
+  flowIndex = 0;
+  inGate = false;
+
+  // Go to previous segment if possible
+  if (idx > 0) {
+    loadSegment(idx - 1);
+  }
+};
+
 
 btnNext.onclick = () => {
   if (!inGate) return;
