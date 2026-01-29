@@ -60,22 +60,24 @@ Now enter this inquiry:
 “Explain the primary mechanisms driving climate change, focusing on energy balance and greenhouse gases, in language suitable for a technically literate but non-specialist audience.”
 Nothing about the AI has changed. What changed is the articulation of intent; you wanted to know the mechanism of Climate Change in a way the you or anyone you spoke to about it would understand. This outcome becomes aligned with purpose because you specified what mattered. 
 `,
-  flow: [
-    { type: "audio", src: "./seg3_firsthalf.mp3" },
 
-    { 
-      type: "prompt", 
-      text: "Pause here and complete the exercise. When you’re ready, click Continue." 
-    },
+flow: [
+  { type: "audio", src: "./seg3_firsthalf.mp3" },
 
-    { type: "audio", src: "./seg3_secondhalf.mp3" },
+  {
+    type: "gate",
+    text: "Pause here and complete the exercise. When you’re ready, click Next to continue."
+  },
 
-    { 
-      type: "prompt", 
-      text: "Apply what you just learned. Click Continue when finished." 
-    },
+  { type: "audio", src: "./seg3_secondhalf.mp3" },
 
-    { type: "audio", src: "./seg3_thirds.mp3" }
+  {
+    type: "gate",
+    text: "Apply what you just learned. When you’re ready, click Next to continue."
+  },
+
+  { type: "audio", src: "./seg3_thirds.mp3" }
+
   ]
 },
 

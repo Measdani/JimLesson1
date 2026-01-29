@@ -35,14 +35,17 @@ function playFlowItem() {
     return;
   }
 
-  if (item.type === "prompt") {
-    stopTTS();
-    audio.pause();
+ if (item.type === "gate") {
+  stopTTS();
+  audio.pause();
 
-    respPrompt.textContent = item.text;
-    respModal.classList.remove("hidden");
-    return;
-  }
+  gateBox.textContent = item.text;
+  inGate = true;
+  btnNext.disabled = false;
+
+  return;
+}
+
 }
 
 
