@@ -13,3 +13,12 @@ button:disabled { opacity:.5; cursor:not-allowed; }
 .modalContent { width: min(900px, 92vw); background:#fff; border-radius: 10px; padding: 16px; }
 .hidden { display:none; }
 textarea { width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ccc; }
+#btnPause{
+  background: #e53935;
+  color: #fff;
+  border-color: #e53935;
+}
+#btnPause:hover{
+  filter: brightness(0.95);
+}
+
