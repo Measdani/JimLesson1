@@ -36,7 +36,28 @@
         <p class="sectionLabel">Reflection & Exploration</p>
 
         <div class="aiBox">
-          
+          <div class="col side">
+
+  <!-- Reflection & Exploration + AI box (moved above Progress) -->
+  <div class="aiWrap">
+    <div class="aiLabel">REFLECTION &amp; EXPLORATION</div>
+
+    <div class="aiCard">
+      <h3>Ask the AI (Lesson Workspace)</h3>
+      <textarea id="aiInput" rows="4" placeholder="Ask a question about this lesson, test an idea, or explore an assumption..."></textarea>
+      <div class="controls">
+        <button id="aiBtn">Ask AI</button>
+      </div>
+      <pre id="aiOutput" class="hidden"></pre>
+    </div>
+  </div>
+
+  <!-- Progress stays below -->
+  <h3>Progress</h3>
+  <ol id="progress"></ol>
+
+</div>
+
   <h3>Ask the AI (Lesson Workspace)</h3>
   <textarea 
     id="aiQuery"
