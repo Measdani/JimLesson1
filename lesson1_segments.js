@@ -150,7 +150,6 @@ flow: [
     id: "seg6",
     title: "Demonstration 4 — Automation vs Cognitive Expansion",
     gate: "This distinction matters more than speed. Click Next to continue.",
-    audioUrl: "./seg6.mp3",
     transcript: `Demonstration 4 — Automation Versus Cognitive Expansion
 Now find a writing you have produced. This can be an email, a memo, or a report. To be most effective it should be at least 100 words. 
 If you ask:
@@ -159,8 +158,26 @@ That is automation. Effort is reduced, but thinking is not expanded.
 Now ask:
 ‘Rewrite this text more concisely, suggesting two alternative framings depending on whether the audience is risk-averse or opportunity-focused.’
 Here, the system explores alternatives you may not have considered, and will put themselves in the place of the audience.  This is cognitive expansion. Durable value arises from this mode of use.
-`
+`,
+flow: [
+    { type: "audio", src: "./seg6_firsthalf.mp3" },
+
+    {
+      type: "gate",
+      text: "Run the first prompt. When you’re ready, click Next to continue."
+    },
+
+    { type: "audio", src: "./seg6_secondhalf.mp3" },
+
+    {
+      type: "gate",
+      text: "Now run the structured prompt. When you’re ready, click Next to continue."
+    },
+
+    { type: "audio", src: "./seg6_thirds.mp3" }
+  ]
   },
+
   {
     id: "seg7",
     title: "Demonstration 5 — Structured vs Unstructured Thinking",
