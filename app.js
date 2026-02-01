@@ -62,6 +62,45 @@ if (item.type === "gate") {
 
 }
 
+function loadProgress() {
+  try {
+    return JSON.parse(localStorage.getItem(PROGRESS_KEY)) || { lessons: {} };
+  } catch {
+    return { lessons: {} };
+  }
+}
+
+function saveProgress(p) {
+  localStorage.setItem(PROGRESS_KEY, JSON.stringify(p));
+}
+
+function ensureLesson(progress, lessonNum) {
+  const key = String(lessonNum);
+  if (!progress.lessons[key]) {
+    progress.lessons[key] = { completedSegments: {}, completed: false };
+  }
+  return progress.lessons[key];
+}
+
+function markSegmentComplete(lessonNum, segmentId) {
+  const progress = loadProgress();
+  const lesson = ensureLesson(progress, lessonNum);
+
+  lesson.completedSegments[segmentId] = true;
+
+  // lesson complete if all segments are complete
+  const allDone = segments.every(s => lesson.completedSegments[s.id]);
+  lesson.completed = allDone;
+
+  saveProgress(progress);
+  return { allDone };
+}
+
+function isSegmentComplete(lessonNum, segmentId) {
+  const progress = loadProgress();
+  const lesson = progress.lessons?.[String(lessonNum)];
+  return !!lesson?.completedSegments?.[segmentId];
+}
 
 
 
@@ -148,12 +187,14 @@ const transcript = document.getElementById("transcript");
 const gateBox = document.getElementById("gateBox");
 const progress = document.getElementById("progress");
 
+
 const btnPlay = document.getElementById("btnPlay");
 const btnPause = document.getElementById("btnPause");
 const btnRepeat = document.getElementById("btnRepeat");
 const btnAsk = document.getElementById("btnAsk");
 const btnNext = document.getElementById("btnNext");
 const btnBack = document.getElementById("btnBack");
+const btnExit = document.getElementById("btnExit");
 
 
 const qModal = document.getElementById("qModal");
@@ -167,6 +208,38 @@ const btnSend = document.getElementById("btnSend");
 const btnClose = document.getElementById("btnClose");
 const answerText = document.getElementById("answerText");
 const btnMic = document.getElementById("btnMic");
+
+const LESSON_NUMBER = 1;
+const PROGRESS_KEY = "jim_progress_v1";
+
+let currentIndex = 0;
+
+const segments = [
+  { id: "seg1", title: "Spoken Overview", requirement: "audio" },
+  { id: "seg2", title: "Spoken Learning Objectives", requirement: "audio" },
+  { id: "seg3", title: "Demonstration 1 — Articulation of Intent", requirement: "audio" }, 
+  { id: "seg4", title: "Demonstration 2 — Context, Clarity, Constraints", requirement: "audio" },
+  { id: "seg5", title: "Demonstration 3 — AI Mirrors Inquiry Quality", requirement: "audio" },
+  { id: "seg6", title: "Demonstration 4 — Automation vs Cognitive Expansion", requirement: "audio" }, 
+  { id: "seg7", title: "Demonstration 5 — Structured vs Unstructured Thinking", requirement: "audio"   },
+  { id: "seg8", title: "Spoken Key Insights", requirement: "audio" },
+  { id: "seg9", title: "Spoken Lesson Summary", requirement: "audio" },
+];
+
+audio.addEventListener("ended", () => {
+  const seg = segments[currentIndex];
+  if (!seg) return;
+
+  if (seg.requirement === "audio") {
+    markSegmentComplete(LESSON_NUMBER, seg.id);
+    btnNext.disabled = false;
+
+    // enable Exit ONLY after last segment completes
+    const isLast = currentIndex === segments.length - 1;
+    if (isLast && btnExit) btnExit.disabled = false;
+  }
+});
+
 
 
 function renderProgress() {
@@ -188,6 +261,9 @@ function loadSegment(i) {
   audio.removeAttribute("src");
   audio.load();
   
+  const lastSeg = LESSON1[LESSON1.length - 1];
+btnExit.disabled = !isSegmentComplete(LESSON_NUMBER, lastSeg.id);
+
 
   idx = i;
   const s = LESSON1[idx];
@@ -199,6 +275,8 @@ function loadSegment(i) {
 
   btnBack.disabled = i === 0;
   btnNext.disabled = true;
+  btnExit.disabled = true;
+
   renderProgress();
 
   // Reset flow UI whenever we change segments
@@ -303,6 +381,16 @@ btnNext.onclick = () => {
   if (idx < LESSON1.length - 1) loadSegment(idx + 1);
   else gateBox.textContent = "Lesson complete.";
 };
+
+btnExit.addEventListener("click", () => {
+  audio.pause();
+  audio.currentTime = 0;
+
+  // TEMP: reload page or navigate to dashboard
+  // Later this becomes showDashboard()
+  window.location.reload();
+});
+
 
 
 btnAsk.onclick = () => {
