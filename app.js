@@ -215,15 +215,7 @@ const PROGRESS_KEY = "jim_progress_v1";
 
 
 
-  if (seg.requirement === "audio") {
-    markSegmentComplete(LESSON_NUMBER, seg.id);
-    btnNext.disabled = false;
 
-    // enable Exit ONLY after last segment completes
-    const isLast = currentIndex === segments.length - 1;
-    if (isLast && btnExit) btnExit.disabled = false;
-  }
-});
 
 
 
@@ -262,24 +254,9 @@ btnExit.disabled = !isSegmentComplete(LESSON_NUMBER, lastSeg.id);
   btnNext.disabled = true;
   
 
-  renderProgress();
   
-  function loadSegment(i) {
-  stopTTS();
-  audio.pause();
-  audio.removeAttribute("src");
-  audio.load();
+  
 
-  idx = i;
-  const s = LESSON1[idx];
-
-  segTitle.textContent = `${idx + 1}. ${s.title}`;
-  transcript.textContent = s.transcript || "";
-  gateBox.textContent = "";
-  inGate = false;
-
-  btnBack.disabled = i === 0;
-  btnNext.disabled = true;
 
   // Exit should reflect completion (do NOT hard-disable it)
   updateExitState();
@@ -496,15 +473,16 @@ btnMic.onclick = () => {
 
 audio.addEventListener("ended", () => {
   const s = LESSON1[idx];
+  if (!s) return;
 
   // If we are playing a FLOW item, continue flow
-  if (hasFlow(s) && nextMode === "flow") {
+  if (nextMode === "flow") {
     flowIndex += 1;
     playFlowItem();
     return;
   }
   // Normal segment completion: audio finished => segment complete
-  const allDone = markSegmentComplete(LESSON_NUMBER, s.id);
+  markSegmentComplete(LESSON_NUMBER, s.id);
 
   // If this is the LAST segment, Next stays disabled and Exit becomes enabled
   const isLast = idx === LESSON1.length - 1;
@@ -512,7 +490,7 @@ audio.addEventListener("ended", () => {
   if (isLast) {
     btnNext.disabled = true;
     btnExit.disabled = false;
-    gateBox.textContent = "Lesson complete. You can exit now.";
+    gateBox.textContent = "Lesson complete. Click Exit Lesson.";
     return;
   }
 
