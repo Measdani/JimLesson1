@@ -33,7 +33,7 @@ if (!item) {
   if (item.type === "audio") {
 nextMode = "flow";
 inGate = false;
-btnNext.disabled = true;
+
 
 
 
@@ -212,23 +212,8 @@ const btnMic = document.getElementById("btnMic");
 const LESSON_NUMBER = 1;
 const PROGRESS_KEY = "jim_progress_v1";
 
-let currentIndex = 0;
 
-const segments = [
-  { id: "seg1", title: "Spoken Overview", requirement: "audio" },
-  { id: "seg2", title: "Spoken Learning Objectives", requirement: "audio" },
-  { id: "seg3", title: "Demonstration 1 — Articulation of Intent", requirement: "audio" }, 
-  { id: "seg4", title: "Demonstration 2 — Context, Clarity, Constraints", requirement: "audio" },
-  { id: "seg5", title: "Demonstration 3 — AI Mirrors Inquiry Quality", requirement: "audio" },
-  { id: "seg6", title: "Demonstration 4 — Automation vs Cognitive Expansion", requirement: "audio" }, 
-  { id: "seg7", title: "Demonstration 5 — Structured vs Unstructured Thinking", requirement: "audio"   },
-  { id: "seg8", title: "Spoken Key Insights", requirement: "audio" },
-  { id: "seg9", title: "Spoken Lesson Summary", requirement: "audio" },
-];
 
-audio.addEventListener("ended", () => {
-  const seg = segments[currentIndex];
-  if (!seg) return;
 
   if (seg.requirement === "audio") {
     markSegmentComplete(LESSON_NUMBER, seg.id);
@@ -275,10 +260,50 @@ btnExit.disabled = !isSegmentComplete(LESSON_NUMBER, lastSeg.id);
 
   btnBack.disabled = i === 0;
   btnNext.disabled = true;
-  btnExit.disabled = true;
+  
 
   renderProgress();
+  
+  function loadSegment(i) {
+  stopTTS();
+  audio.pause();
+  audio.removeAttribute("src");
+  audio.load();
+
+  idx = i;
+  const s = LESSON1[idx];
+
+  segTitle.textContent = `${idx + 1}. ${s.title}`;
+  transcript.textContent = s.transcript || "";
+  gateBox.textContent = "";
+  inGate = false;
+
+  btnBack.disabled = i === 0;
+  btnNext.disabled = true;
+
+  // Exit should reflect completion (do NOT hard-disable it)
   updateExitState();
+
+  renderProgress();
+
+  // Reset flow UI whenever we change segments
+  respModal.classList.add("hidden");
+  flowIndex = 0;
+  nextMode = "segment";
+
+  // If this segment was already completed, allow Next immediately (review mode)
+  if (isSegmentComplete(LESSON_NUMBER, s.id) && idx !== LESSON1.length - 1) {
+    btnNext.disabled = false;
+    inGate = true;
+  }
+
+  // Only preload audio for non-flow segments
+  if (!hasFlow(s) && isUsingAudio()) {
+    audio.src = s.audioUrl;
+    audio.load();
+  }
+}
+
 
 
   // Reset flow UI whenever we change segments
@@ -463,20 +488,37 @@ function updateExitState() {
 }
 
 
-
-btnMic.onclick = () => startListening();
+btnMic.onclick = () => {
   console.log("MIC clicked");
   startListening();
+};
+
 
 audio.addEventListener("ended", () => {
   const s = LESSON1[idx];
 
-  if (hasFlow(s)) {
+  // If we are playing a FLOW item, continue flow
+  if (hasFlow(s) && nextMode === "flow") {
     flowIndex += 1;
     playFlowItem();
-  } else {
-    enterGate();
+    return;
   }
+  // Normal segment completion: audio finished => segment complete
+  const allDone = markSegmentComplete(LESSON_NUMBER, s.id);
+
+  // If this is the LAST segment, Next stays disabled and Exit becomes enabled
+  const isLast = idx === LESSON1.length - 1;
+
+  if (isLast) {
+    btnNext.disabled = true;
+    btnExit.disabled = false;
+    gateBox.textContent = "Lesson complete. You can exit now.";
+    return;
+  }
+
+  // Otherwise unlock Next for moving to next segment
+  enterGate();           // sets inGate=true and enables Next
+  updateExitState();     // keep Exit synced (still disabled until last segment complete)
 });
 
 audio.addEventListener("error", () => {
