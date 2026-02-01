@@ -238,10 +238,6 @@ function loadSegment(i) {
   audio.removeAttribute("src");
   audio.load();
   
-  const lastSeg = LESSON1[LESSON1.length - 1];
-btnExit.disabled = !isSegmentComplete(LESSON_NUMBER, lastSeg.id);
-
-
   idx = i;
   const s = LESSON1[idx];
 
@@ -254,10 +250,6 @@ btnExit.disabled = !isSegmentComplete(LESSON_NUMBER, lastSeg.id);
   btnNext.disabled = true;
   
 
-  
-  
-
-
   // Exit should reflect completion (do NOT hard-disable it)
   updateExitState();
 
@@ -268,31 +260,31 @@ btnExit.disabled = !isSegmentComplete(LESSON_NUMBER, lastSeg.id);
   flowIndex = 0;
   nextMode = "segment";
 
+  
+
+  
+
   // If this segment was already completed, allow Next immediately (review mode)
   if (isSegmentComplete(LESSON_NUMBER, s.id) && idx !== LESSON1.length - 1) {
     btnNext.disabled = false;
     inGate = true;
   }
 
-  // Only preload audio for non-flow segments
-  if (!hasFlow(s) && isUsingAudio()) {
-    audio.src = audioUrl;
-    audio.load();
-  }
-}
 
+}
+const s = LESSON1[idx];
+
+if (!hasFlow(s) && s.audioUrl && s.audioUrl.trim()) {
+  audio.src = s.audioUrl;
+  audio.load();
+}
 
 
   // Reset flow UI whenever we change segments
   respModal.classList.add("hidden");
   flowIndex = 0;
 
-  // Only preload audio for non-flow segments
-  if (!hasFlow(s) && isUsingAudio()) {
-    audio.src = audioUrl;
-    audio.load();
 
-  }
 
 
 
