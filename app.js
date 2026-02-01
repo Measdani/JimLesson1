@@ -293,7 +293,7 @@ btnExit.disabled = !isSegmentComplete(LESSON_NUMBER, lastSeg.id);
     audio.load();
 
   }
-}
+
 
 
 function enterGate() {
