@@ -262,6 +262,12 @@ function loadSegment(i) {
 
   
 
+if (!hasFlow(s) && s.audioUrl && s.audioUrl.trim()) {
+  audio.src = s.audioUrl;
+  audio.load();
+}
+
+
   
 
   // If this segment was already completed, allow Next immediately (review mode)
@@ -271,12 +277,6 @@ function loadSegment(i) {
   }
 
 
-}
-const s = LESSON1[idx];
-
-if (!hasFlow(s) && s.audioUrl && s.audioUrl.trim()) {
-  audio.src = s.audioUrl;
-  audio.load();
 }
 
 
