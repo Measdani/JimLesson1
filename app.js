@@ -278,6 +278,8 @@ btnExit.disabled = !isSegmentComplete(LESSON_NUMBER, lastSeg.id);
   btnExit.disabled = true;
 
   renderProgress();
+  updateExitState();
+
 
   // Reset flow UI whenever we change segments
   respModal.classList.add("hidden");
@@ -287,9 +289,9 @@ btnExit.disabled = !isSegmentComplete(LESSON_NUMBER, lastSeg.id);
   if (!hasFlow(s) && isUsingAudio()) {
     audio.src = s.audioUrl;
     audio.load();
+
   }
 }
-
 
 
 function enterGate() {
@@ -455,6 +457,10 @@ btnSend.onclick = async () => {
     console.error(err);
   }
 };
+function updateExitState() {
+  const lastSeg = LESSON1[LESSON1.length - 1];
+  btnExit.disabled = !isSegmentComplete(LESSON_NUMBER, lastSeg.id);
+}
 
 
 
