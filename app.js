@@ -129,7 +129,7 @@ function speakText(text) {
 
 function isUsingAudio() {
   const s = LESSON1[idx];
-  return !!(s.audioUrl && s.audioUrl.trim());
+  return !!(audioUrl && audioUrl.trim());
 }
 // ---------- STT (Speech-to-Text) ----------
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -276,7 +276,7 @@ btnExit.disabled = !isSegmentComplete(LESSON_NUMBER, lastSeg.id);
 
   // Only preload audio for non-flow segments
   if (!hasFlow(s) && isUsingAudio()) {
-    audio.src = s.audioUrl;
+    audio.src = audioUrl;
     audio.load();
   }
 }
@@ -289,7 +289,7 @@ btnExit.disabled = !isSegmentComplete(LESSON_NUMBER, lastSeg.id);
 
   // Only preload audio for non-flow segments
   if (!hasFlow(s) && isUsingAudio()) {
-    audio.src = s.audioUrl;
+    audio.src = audioUrl;
     audio.load();
 
   }
