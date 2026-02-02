@@ -238,6 +238,16 @@ function loadSegment(i) {
   audio.removeAttribute("src");
   audio.load();
   
+// If audio is already completed (or has no duration yet), keep Next locked.
+// When metadata loads, we can check again.
+audio.onloadedmetadata = () => {
+  // if audio duration exists and we're basically at the end, unlock
+  if (audio.duration && audio.currentTime >= audio.duration - 0.05) {
+    unlockNextForCurrentSegment();
+  }
+};
+
+
   idx = i;
   const s = LESSON1[idx];
 
@@ -264,7 +274,19 @@ function loadSegment(i) {
 
 if (!hasFlow(s) && s.audioUrl && s.audioUrl.trim()) {
   audio.src = s.audioUrl;
+  audio.currentTime = 0;
   audio.load();
+}
+
+function unlockNextForCurrentSegment() {
+  // If we're on the last segment, Next stays disabled (per your rule)
+  const isLast = idx === LESSON1.length - 1;
+  if (isLast) {
+    btnNext.disabled = true;
+    return;
+  }
+  inGate = true;
+  btnNext.disabled = false;
 }
 
 
@@ -487,7 +509,21 @@ audio.addEventListener("ended", () => {
   }
 
   // Otherwise unlock Next for moving to next segment
-  enterGate();           // sets inGate=true and enables Next
+  // Normal segment completion
+markSegmentComplete(LESSON_NUMBER, s.id);
+
+
+if (isLast) {
+  btnNext.disabled = true;
+  btnExit.disabled = false;
+  gateBox.textContent = "Lesson complete. Click Exit Lesson.";
+  return;
+}
+
+// unlock Next for moving forward
+unlockNextForCurrentSegment();
+updateExitState();
+
   updateExitState();     // keep Exit synced (still disabled until last segment complete)
 });
 
