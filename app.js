@@ -424,6 +424,22 @@ btnAsk.onclick = () => {
   qModal.classList.remove("hidden");
   qText.focus();
 };
+btnAsk.addEventListener("click", (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+
+  if (isUsingAudio()) {
+    pausedAt = audio.currentTime || 0;
+    audio.pause();
+  } else {
+    stopTTS();
+    pausedAt = 0;
+  }
+
+  qModal.classList.remove("hidden");
+  qText.focus();
+});
+
 
 btnClose.onclick = () => {
     console.log("CLOSE clicked");
@@ -530,6 +546,16 @@ aiBtn.onclick = () => {
     aiOutput.textContent = "Type a question to explore this lesson.";
     return;
   }
+aiBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+
+  const q = aiInput.value.trim();
+  aiOutput.classList.remove("hidden");
+  aiOutput.textContent = q
+    ? "AI Workspace is coming online soon...\n\nYou’ll be able to explore ideas directly here."
+    : "Type a question to explore this lesson.";
+});
 
   // Placeholder until API is live
   aiOutput.classList.remove("hidden");
