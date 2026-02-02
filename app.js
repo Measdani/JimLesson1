@@ -129,8 +129,9 @@ function speakText(text) {
 
 function isUsingAudio() {
   const s = LESSON1[idx];
-  return !!(audioUrl && audioUrl.trim());
+  return !!(s.audioUrl && s.audioUrl.trim());
 }
+
 // ---------- STT (Speech-to-Text) ----------
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 let recognition = null;
