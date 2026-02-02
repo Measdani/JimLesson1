@@ -37,7 +37,7 @@ inGate = false;
 
 
 
-    respModal.classList.add("hidden");
+  
 
 
     audio.src = item.src;
@@ -88,13 +88,13 @@ function markSegmentComplete(lessonNum, segmentId) {
 
   lesson.completedSegments[segmentId] = true;
 
-  // lesson complete if all segments are complete
-  const allDone = segments.every(s => lesson.completedSegments[s.id]);
+  const allDone = LESSON1.every(s => lesson.completedSegments[s.id]);
   lesson.completed = allDone;
 
   saveProgress(progress);
-  return { allDone };
+  return allDone;
 }
+
 
 function isSegmentComplete(lessonNum, segmentId) {
   const progress = loadProgress();
@@ -278,16 +278,7 @@ if (!hasFlow(s) && s.audioUrl && s.audioUrl.trim()) {
   audio.load();
 }
 
-function unlockNextForCurrentSegment() {
-  // If we're on the last segment, Next stays disabled (per your rule)
-  const isLast = idx === LESSON1.length - 1;
-  if (isLast) {
-    btnNext.disabled = true;
-    return;
-  }
-  inGate = true;
-  btnNext.disabled = false;
-}
+
 
 
   
@@ -302,10 +293,18 @@ function unlockNextForCurrentSegment() {
 }
 
 
-  // Reset flow UI whenever we change segments
-  respModal.classList.add("hidden");
-  flowIndex = 0;
 
+
+function unlockNextForCurrentSegment() {
+  const isLast = idx === LESSON1.length - 1;
+  if (isLast) {
+    btnNext.disabled = true;
+    return;
+  }
+  inGate = true;
+  btnNext.disabled = false;
+  gateBox.textContent = ""; // optional
+}
 
 
 
@@ -489,43 +488,30 @@ audio.addEventListener("ended", () => {
   const s = LESSON1[idx];
   if (!s) return;
 
-  // If we are playing a FLOW item, continue flow
+  // Flow mode: keep advancing flow
   if (nextMode === "flow") {
     flowIndex += 1;
     playFlowItem();
     return;
   }
-  // Normal segment completion: audio finished => segment complete
+
+  // Segment finished
   markSegmentComplete(LESSON_NUMBER, s.id);
 
-  // If this is the LAST segment, Next stays disabled and Exit becomes enabled
   const isLast = idx === LESSON1.length - 1;
-
   if (isLast) {
     btnNext.disabled = true;
     btnExit.disabled = false;
     gateBox.textContent = "Lesson complete. Click Exit Lesson.";
+    updateExitState();
     return;
   }
 
-  // Otherwise unlock Next for moving to next segment
-  // Normal segment completion
-markSegmentComplete(LESSON_NUMBER, s.id);
-
-
-if (isLast) {
-  btnNext.disabled = true;
-  btnExit.disabled = false;
-  gateBox.textContent = "Lesson complete. Click Exit Lesson.";
-  return;
-}
-
-// unlock Next for moving forward
-unlockNextForCurrentSegment();
-updateExitState();
-
-  updateExitState();     // keep Exit synced (still disabled until last segment complete)
+  unlockNextForCurrentSegment();
+  updateExitState();
 });
+
+
 
 audio.addEventListener("error", () => {
   console.error("Audio failed:", audio.src);
@@ -549,19 +535,6 @@ aiBtn.onclick = () => {
   aiOutput.textContent =
     "AI Workspace is coming online soon.\n\nYou’ll be able to explore ideas directly here without leaving the lesson.";
 };
-
-
-
-
-
-`AI Workspace is coming online soon.
-
-For now, use this space to:
-• Write the question you would ask
-• Clarify your assumptions
-• Note what you’re testing or exploring
-
-Once enabled, this AI will respond within the lesson context instead of sending you elsewhere.`;
 
 
 // Start at segment 1
