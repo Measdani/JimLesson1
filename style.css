@@ -228,3 +228,33 @@ audio::-internal-media-controls-download-button {
 audio::-webkit-media-controls-enclosure {
   overflow: hidden;
 }
+/* Make sure the Ask modal always sits above everything */
+#qModal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+}
+
+/* If your modal inner panel has its own id/class, ensure it's above too */
+#qModal .modal-content {
+  position: relative;
+  z-index: 10000;
+}
+
+/* Keep the AI workspace below modals */
+#aiCard, #aiWorkspace, .ai-workspace {
+  position: relative;
+  z-index: 1;
+}
+/* Modal always on top */
+#qModal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+}
+
+/* Hide AI card when modal is open */
+body.modal-open #aiCard {
+  visibility: hidden;
+}
+

@@ -424,6 +424,12 @@ btnAsk.onclick = () => {
   qModal.classList.remove("hidden");
   qText.focus();
 };
+
+function setModalOpen(isOpen) {
+  document.body.classList.toggle("modal-open", isOpen);
+}
+
+
 btnAsk.addEventListener("click", (e) => {
   e.preventDefault();
   e.stopPropagation();
@@ -436,14 +442,16 @@ btnAsk.addEventListener("click", (e) => {
     pausedAt = 0;
   }
 
-  qModal.classList.remove("hidden");
-  qText.focus();
+qModal.classList.remove("hidden");
+setModalOpen(true);
+qText.focus();
 });
 
 
 btnClose.onclick = () => {
     console.log("CLOSE clicked");
   qModal.classList.add("hidden");
+  setModalOpen(false);
 
   // resume only if we were mid-playback
   if (!inGate) {
