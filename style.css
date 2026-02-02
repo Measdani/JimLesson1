@@ -221,3 +221,10 @@ textarea:focus{
 .side > button {
   display: none;
 }
+
+audio::-internal-media-controls-download-button {
+  display: none;
+}
+audio::-webkit-media-controls-enclosure {
+  overflow: hidden;
+}
