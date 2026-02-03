@@ -253,6 +253,9 @@ btnRepeat.onclick = () => {
   console.log("btnRepeat clicked, idx:", idx);
   const s = LESSON1[idx];
   console.log("Repeat clicked, segment:", idx);
+  // stop TTS if active
+  stopTTS();
+  
   if (isUsingAudio()) {
     console.log("Repeating audio");
     if (audio.src!== s.audioUrl){
