@@ -559,18 +559,18 @@ audio.addEventListener("ended", () => {
 audio.addEventListener("error", () => {
   console.error("Audio failed:", audio.src);
 
-  // If we're in flow mode, advance to next flow item instead of getting stuck
+  // If we're in flow mode, show error and enable manual skip
   if (nextMode === "flow") {
-    gateBox.textContent = "Audio missing, skipping...";
-    setTimeout(() => {
-      flowIndex += 1;
-      playFlowItem();
-    }, 1000); // Give user time to see the message
+    gateBox.textContent = "Audio file missing. Click Continue to skip.";
+    inGate = true;
+    btnNext.disabled = false;
     return;
   }
 
-  // For regular segments, show error
-  gateBox.textContent = "Audio missing or wrong path: " + audio.src;
+  // For regular segments, show error and enable Continue
+  gateBox.textContent = "Audio missing. Click Continue to proceed.";
+  inGate = true;
+  btnNext.disabled = false;
 });
 const aiInput = document.getElementById("aiInput");
 const aiBtn = document.getElementById("aiBtn");
