@@ -253,10 +253,13 @@ audio::-webkit-media-controls-enclosure {
   position: fixed;
   inset: 0;
   z-index: 9999;
-  display: flex;
   align-items: center;
   justify-content: center;
   pointer-events: auto;
+}
+
+#qModal:not(.hidden) {
+  display: flex;
 }
 
 #qModal .modalContent {
