@@ -295,7 +295,7 @@ function unlockNextForCurrentSegment() {
   }
   inGate = true;
   btnNext.disabled = false;
-  gateBox.textContent = ""; // optional
+  gateBox.textContent = LESSON1[idx].gate;
 }
 
 
