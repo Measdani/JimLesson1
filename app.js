@@ -258,9 +258,9 @@ btnRepeat.onclick = () => {
     if (audio.src!== s.audioUrl){
       audio.src = s.audioUrl;
         audio.currentTime = 0;
-        {
+    }
 audio.play().catch(() => {});
-        }
+        
     } else {
     speakText(s.transcript);
   }
@@ -434,4 +434,4 @@ Once enabled, this AI will respond within the lesson context instead of sending 
 // Start at segment 1
 loadSegment(0);
 flowIndex = 0;
-}
+
