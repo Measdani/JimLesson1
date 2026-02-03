@@ -246,11 +246,33 @@ audio::-webkit-media-controls-enclosure {
   position: relative;
   z-index: 1;
 }
-/* Modal always on top */
+/* Ask Modal - Fixed and not moveable */
 #qModal {
   position: fixed;
   inset: 0;
   z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: auto;
+}
+
+#qModal .modalContent {
+  position: relative;
+  max-width: 700px;
+  width: 90%;
+  max-height: 85vh;
+  overflow-y: auto;
+  user-select: text;
+  -webkit-user-drag: none;
+  -moz-user-drag: none;
+  cursor: default;
+}
+
+/* Prevent dragging on modal elements */
+#qModal *, #qModal .modalContent * {
+  -webkit-user-drag: none;
+  -moz-user-drag: none;
 }
 
 /* Hide AI card when modal is open */
