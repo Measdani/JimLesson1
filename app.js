@@ -255,10 +255,13 @@ btnRepeat.onclick = () => {
   console.log("Repeat clicked, segment:", idx);
   if (isUsingAudio()) {
     console.log("Repeating audio");
-    audio.currentTime = 0;
-    audio.play().catch(() => {});
-  } else {
-    console.log("Repeating TTS");
+    if (audio.src!== s.audioUrl){
+      audio.src = s.audioUrl;
+        audio.currentTime = 0;
+        {
+audio.play().catch(() => {});
+        }
+    } else {
     speakText(s.transcript);
   }
 };
