@@ -8,6 +8,7 @@ let pausedAt = 0;
 
 let flowIndex = 0;
 let nextMode = "segment"; // "flow" or "segment"
+let isPaused = false;
 
 
 function hasFlow(seg) {
@@ -238,7 +239,10 @@ function loadSegment(i) {
   audio.pause();
   audio.removeAttribute("src");
   audio.load();
-  
+
+  // Reset pause state when changing segments
+  isPaused = false;
+
 // If audio is already completed (or has no duration yet), keep Next locked.
 // When metadata loads, we can check again.
 audio.onloadedmetadata = () => {
@@ -312,12 +316,20 @@ btnPlay.onclick = () => {
   inGate = false;
 
   if (hasFlow(s)) {
-    resetFlow();
-    playFlowItem();
+    // If paused, resume from current flow position
+    if (isPaused) {
+      isPaused = false;
+      playFlowItem();
+    } else {
+      // Otherwise start from beginning
+      resetFlow();
+      playFlowItem();
+    }
     return;
   }
 
   if (isUsingAudio()) {
+    isPaused = false;
     audio.play().catch((e) => console.error(e));
   } else {
     speakText(s.transcript);
@@ -328,6 +340,9 @@ btnPlay.onclick = () => {
 
 btnPause.onclick = () => {
   console.log("Pause clicked, current idx:", idx);
+
+  // Mark as paused so Play can resume
+  isPaused = true;
 
   // Always pause audio (handles both segment audio and flow audio)
   audio.pause();
@@ -340,6 +355,9 @@ btnRepeat.onclick = () => {
   console.log("btnRepeat clicked, idx:", idx);
   const s = LESSON1[idx];
   console.log("Repeat clicked, segment:", idx);
+
+  // Reset pause state - repeat always starts from beginning
+  isPaused = false;
 
   // stop TTS if active
   stopTTS();
@@ -510,6 +528,9 @@ btnMic.onclick = () => {
 audio.addEventListener("ended", () => {
   const s = LESSON1[idx];
   if (!s) return;
+
+  // Reset pause state when audio finishes
+  isPaused = false;
 
   // Flow mode: keep advancing flow
   if (nextMode === "flow") {
