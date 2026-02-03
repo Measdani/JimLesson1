@@ -336,6 +336,10 @@ btnAsk.onclick = () => {
     pausedAt = 0;
   }
 
+  // Hide AI workspace output if visible
+  aiOutput.classList.add("hidden");
+
+  // Show Ask modal
   qModal.classList.remove("hidden");
   qText.focus();
 };
