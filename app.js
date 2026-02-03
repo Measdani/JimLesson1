@@ -542,9 +542,8 @@ audio.addEventListener("ended", () => {
   const isLast = idx === LESSON1.length - 1;
   if (isLast) {
     btnNext.disabled = true;
-    btnExit.disabled = false;
     gateBox.textContent = "Lesson complete. Click Exit Lesson.";
-    updateExitState();
+    updateExitState(); // This will enable Exit button since last segment is now complete
     return;
   }
 
