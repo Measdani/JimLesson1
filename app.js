@@ -278,19 +278,6 @@ if (!hasFlow(s) && s.audioUrl && s.audioUrl.trim()) {
   audio.currentTime = 0;
   audio.load();
 }
-
-
-
-
-  
-
-  // If this segment was already completed, allow Next immediately (review mode)
-  if (isSegmentComplete(LESSON_NUMBER, s.id) && idx !== LESSON1.length - 1) {
-    btnNext.disabled = false;
-    inGate = true;
-  }
-
-
 }
 
 
@@ -319,6 +306,10 @@ function enterGate() {
 btnPlay.onclick = () => {
   const s = LESSON1[idx];
   console.log("Play clicked", s.id);
+
+  // Disable Continue button until audio/content finishes
+  btnNext.disabled = true;
+  inGate = false;
 
   if (hasFlow(s)) {
     resetFlow();
