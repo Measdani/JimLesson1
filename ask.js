@@ -11,10 +11,10 @@ module.exports = async (req, res) => {
       return res.status(400).json({ error: "Missing question" });
     }
 
-    // Check if the OPENAI_API_KEY is available in the environment variables
-    const apiKey = process.env.OPENAI_API_KEY;
+    // Check if the AI_SECRET_KEY is available in the environment variables
+    const apiKey = process.env.AI_SECRET_KEY;
     if (!apiKey) {
-      return res.status(500).json({ error: "Server missing OPENAI_API_KEY" });
+      return res.status(500).json({ error: "Server missing AI_SECRET_KEY" });
     }
 
     // Define a system prompt to instruct the AI
