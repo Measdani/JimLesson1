@@ -240,7 +240,7 @@ btnPlay.onclick = () => {
 
 
 btnPause.onclick = () => {
-  console.log("Pause clicked, audio active:", audio);
+  console.log("Pause clicked, current idk:", idx);
   if (isUsingAudio()) {
     console
     audio.pause();
