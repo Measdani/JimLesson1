@@ -73,14 +73,14 @@ flow: [
 
   {
     type: "gate",
-    text: "Pause here and complete the exercise. When you’re ready, click Next to continue."
+    text: "Pause here and complete the exercise. When you're ready, click Continue."
   },
 
   { type: "audio", src: "./seg3_secondhalf.mp3" },
 
   {
     type: "gate",
-    text: "Apply what you just learned. When you’re ready, click Next to continue."
+    text: "Apply what you just learned. When you're ready, click Continue."
   },
 
   { type: "audio", src: "./seg3_thirds.mp3" }
@@ -112,14 +112,14 @@ By adding context, clarifying the concern, and constraining the reasoning space,
 
     {
       type: "gate",
-      text: "Run the first prompt. When you’re ready, click Next to continue."
+      text: "Run the first prompt. When you're ready, click Continue."
     },
 
     { type: "audio", src: "./seg4_secondhalf.mp3" },
 
     {
       type: "gate",
-      text: "Now run the structured prompt. When you’re ready, click Next to continue."
+      text: "Now run the structured prompt. When you're ready, click Continue."
     },
 
     { type: "audio", src: "./seg4_thirds.mp3" }
@@ -155,14 +155,14 @@ flow: [
 
     {
       type: "gate",
-      text: "Run the first prompt. When you’re ready, click Next to continue."
+      text: "Run the first prompt. When you're ready, click Continue."
     },
 
     { type: "audio", src: "./seg5_secondhalf.mp3" },
 
     {
       type: "gate",
-      text: "Now run the structured prompt. When you’re ready, click Next to continue."
+      text: "Now run the structured prompt. When you're ready, click Continue."
     },
 
     { type: "audio", src: "./seg5_thirds.mp3" }
@@ -195,14 +195,14 @@ flow: [
 
     {
       type: "gate",
-      text: "Run the first prompt. When you’re ready, click Next to continue."
+      text: "Run the first prompt. When you're ready, click Continue."
     },
 
     { type: "audio", src: "./seg6_secondhalf.mp3" },
 
     {
       type: "gate",
-      text: "Now run the structured prompt. When you’re ready, click Next to continue."
+      text: "Now run the structured prompt. When you're ready, click Continue."
     },
 
     { type: "audio", src: "./seg6_thirds.mp3" }
@@ -212,7 +212,7 @@ flow: [
   {
     id: "seg7",
     title: "Demonstration 5 — Structured vs Unstructured Thinking",
-    gate: "That completes the demonstrations for this lesson. Click Next to reflect on what matters most.",
+    gate: "That completes the demonstrations for this lesson. Click Continue to reflect on what matters most.",
     transcript: `Demonstration 5 — Structured Versus Unstructured Thinking
 Finally, consider this question:
 
@@ -236,14 +236,14 @@ flow: [
 
     {
       type: "gate",
-      text: "Run the first prompt. When you’re ready, click Next to continue."
+      text: "Run the first prompt. When you're ready, click Continue."
     },
 
     { type: "audio", src: "./seg7_secondhalf.mp3" },
 
     {
       type: "gate",
-      text: "Now run the structured prompt. When you’re ready, click Next to continue."
+      text: "Now run the structured prompt. When you're ready, click Continue."
     },
 
     { type: "audio", src: "./seg7_thirds.mp3" }

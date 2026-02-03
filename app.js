@@ -558,6 +558,18 @@ audio.addEventListener("ended", () => {
 
 audio.addEventListener("error", () => {
   console.error("Audio failed:", audio.src);
+
+  // If we're in flow mode, advance to next flow item instead of getting stuck
+  if (nextMode === "flow") {
+    gateBox.textContent = "Audio missing, skipping...";
+    setTimeout(() => {
+      flowIndex += 1;
+      playFlowItem();
+    }, 1000); // Give user time to see the message
+    return;
+  }
+
+  // For regular segments, show error
   gateBox.textContent = "Audio missing or wrong path: " + audio.src;
 });
 const aiInput = document.getElementById("aiInput");
