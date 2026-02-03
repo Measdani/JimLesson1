@@ -406,6 +406,8 @@ btnBack.onclick = () => {
 
 
 btnNext.onclick = () => {
+  console.log("Continue clicked, idx:", idx, "nextMode:", nextMode, "inGate:", inGate);
+
   // If we're inside a FLOW gate, Next should advance the flow
   if (nextMode === "flow") {
     if (!inGate) return; // only allow Next when the gate is open
@@ -416,6 +418,7 @@ btnNext.onclick = () => {
     gateBox.textContent = "";
 
     flowIndex += 1;
+    console.log("Advancing flow to index:", flowIndex);
     playFlowItem();
     return;
   }
@@ -426,8 +429,12 @@ btnNext.onclick = () => {
   stopTTS();
   audio.pause();
 
-  if (idx < LESSON1.length - 1) loadSegment(idx + 1);
-  else gateBox.textContent = "Lesson complete.";
+  if (idx < LESSON1.length - 1) {
+    console.log("Loading next segment:", idx + 1);
+    loadSegment(idx + 1);
+  } else {
+    gateBox.textContent = "Lesson complete.";
+  }
 };
 
 btnExit.addEventListener("click", () => {
