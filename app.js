@@ -422,6 +422,10 @@ btnExit.addEventListener("click", () => {
 
 
 
+function setModalOpen(isOpen) {
+  document.body.classList.toggle("modal-open", isOpen);
+}
+
 btnAsk.onclick = () => {
   // pause whichever mode is active
   if (isUsingAudio()) {
@@ -437,30 +441,9 @@ btnAsk.onclick = () => {
 
   // Show Ask modal
   qModal.classList.remove("hidden");
+  setModalOpen(true);
   qText.focus();
 };
-
-function setModalOpen(isOpen) {
-  document.body.classList.toggle("modal-open", isOpen);
-}
-
-
-btnAsk.addEventListener("click", (e) => {
-  e.preventDefault();
-  e.stopPropagation();
-
-  if (isUsingAudio()) {
-    pausedAt = audio.currentTime || 0;
-    audio.pause();
-  } else {
-    stopTTS();
-    pausedAt = 0;
-  }
-
-qModal.classList.remove("hidden");
-setModalOpen(true);
-qText.focus();
-});
 
 
 btnClose.onclick = () => {
@@ -568,21 +551,11 @@ aiBtn.onclick = () => {
     aiOutput.textContent = "Type a question to explore this lesson.";
     return;
   }
-aiBtn.addEventListener("click", (e) => {
-  e.preventDefault();
-  e.stopPropagation();
-
-  const q = aiInput.value.trim();
-  aiOutput.classList.remove("hidden");
-  aiOutput.textContent = q
-    ? "AI Workspace is coming online soon...\n\nYou’ll be able to explore ideas directly here."
-    : "Type a question to explore this lesson.";
-});
 
   // Placeholder until API is live
   aiOutput.classList.remove("hidden");
   aiOutput.textContent =
-    "AI Workspace is coming online soon.\n\nYou’ll be able to explore ideas directly here without leaving the lesson.";
+    "AI Workspace is coming online soon.\n\nYou'll be able to explore ideas directly here without leaving the lesson.";
 };
 
 
