@@ -5,7 +5,7 @@ export const LESSON1 = [
   {
     id: "seg1",
     title: "Spoken Overview",
-    gate: "When you’re ready, click Next to continue.",
+    gate: "When you're ready, click Continue.",
     audioUrl: "./seg1.mp3", // optional
     transcript: `Welcome.
     
@@ -27,7 +27,7 @@ It is well-understood that AI can be used to automate tasks, making existing wor
   {
     id: "seg2",
     title: "Spoken Learning Objectives",
-    gate: "These objectives will guide everything that follows. Click Next when you’re ready to see how they work in practice.",
+    gate: "These objectives will guide everything that follows. Click Continue when you're ready to see how they work in practice.",
     audioUrl: "./seg2.mp3",
     transcript: `As I list the objectives keep in mind that the valuable outcomes result from expanding your thoughts.
 
@@ -52,7 +52,7 @@ For these demonstrations, you will need to open your favorite AI program – suc
 
   id: "seg3",
   title: "Demonstration 1 — Articulation of Intent",
-  gate: "That concludes the first demonstration. Click Next to continue.",
+  gate: "That concludes the first demonstration. Click Continue.",
   transcript: `Demonstration 1 — Articulation of Intent
 
 Let’s begin with a simple example.
@@ -91,7 +91,7 @@ flow: [
   {
     id: "seg4",
     title: "Demonstration 2 — Context, Clarity, Constraints",
-    gate: "This demonstration shows how structure changes outcomes. Click Next to continue.",
+    gate: "This demonstration shows how structure changes outcomes. Click Continue.",
     transcript: `Demonstration 2 — Context, Clarity, and Constraints Change Outcomes 
 
 Next, consider this question:
@@ -130,7 +130,7 @@ By adding context, clarifying the concern, and constraining the reasoning space,
   {
     id: "seg5",
     title: "Demonstration 3 — AI Mirrors Inquiry Quality",
-    gate: "Notice how the depth of the question shaped the result. Click Next when you’re ready.",
+    gate: "Notice how the depth of the question shaped the result. Click Continue when you're ready.",
     transcript: `Demonstration 3 — AI Mirrors Inquiry Quality
 
 For this demonstration, select a short article or opinion piece from a newspaper or magazine, and provide it to your AI.
@@ -171,7 +171,7 @@ flow: [
   {
     id: "seg6",
     title: "Demonstration 4 — Automation vs Cognitive Expansion",
-    gate: "This distinction matters more than speed. Click Next to continue.",
+    gate: "This distinction matters more than speed. Click Continue.",
     transcript: `Demonstration 4 — Automation Versus Cognitive Expansion
 
 Now find a writing you have produced. This can be an email, a memo, or a report. To be most effective it should be at least 100 words. 

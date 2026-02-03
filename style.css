@@ -104,6 +104,8 @@ button:active{
   border: 1px solid rgba(17,24,39,0.08);
   line-height: 1.55;
   font-size: 13.5px;
+  color: #111827;
+  min-height: 50px;
 }
 
 /* progress area card feel */
