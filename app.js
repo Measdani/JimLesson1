@@ -416,9 +416,8 @@ btnExit.addEventListener("click", () => {
   audio.pause();
   audio.currentTime = 0;
 
-  // TEMP: reload page or navigate to dashboard
-  // Later this becomes showDashboard()
-  window.location.reload();
+  // Navigate to dashboard
+  window.location.href = "dashboard.html";
 });
 
 

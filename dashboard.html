@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>My Lessons Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .dashboard {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 2rem;
+    }
+
+    .lesson-card {
+      background: white;
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .lesson-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    }
+
+    .lesson-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .lesson-title {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .lesson-status {
+      padding: 0.25rem 0.75rem;
+      border-radius: 12px;
+      font-size: 0.875rem;
+      font-weight: 600;
+    }
+
+    .lesson-status.completed {
+      background: #10b981;
+      color: white;
+    }
+
+    .lesson-status.in-progress {
+      background: #3b82f6;
+      color: white;
+    }
+
+    .lesson-status.not-started {
+      background: #e5e7eb;
+      color: #6b7280;
+    }
+
+    .lesson-description {
+      color: #6b7280;
+      margin-bottom: 1rem;
+      line-height: 1.5;
+    }
+
+    .progress-container {
+      background: #e5e7eb;
+      border-radius: 9999px;
+      height: 8px;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: #3b82f6;
+      transition: width 0.3s ease;
+    }
+
+    .progress-bar.completed {
+      background: #10b981;
+    }
+
+    .progress-text {
+      font-size: 0.875rem;
+      color: #6b7280;
+      margin-top: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="dashboard">
+      <h1>My Lessons</h1>
+      <div id="lessonList"></div>
+    </div>
+  </div>
+
+  <script type="module">
+    const PROGRESS_KEY = "jim_progress_v1";
+
+    const lessons = [
+      {
+        id: 1,
+        title: "Lesson 1 — The Intelligence Revolution and You",
+        description: "Learn about the fundamentals of AI and how it's transforming our world. Explore key concepts and understand your role in the intelligence revolution.",
+        url: "index.html",
+        totalSegments: 9
+      }
+      // Add more lessons here as you create them
+    ];
+
+    function loadProgress() {
+      try {
+        return JSON.parse(localStorage.getItem(PROGRESS_KEY)) || { lessons: {} };
+      } catch {
+        return { lessons: {} };
+      }
+    }
+
+    function getLessonProgress(lessonId) {
+      const progress = loadProgress();
+      const lesson = progress.lessons?.[String(lessonId)];
+
+      if (!lesson) {
+        return { completed: 0, total: 0, isCompleted: false };
+      }
+
+      const completedCount = Object.keys(lesson.completedSegments || {}).length;
+      return {
+        completed: completedCount,
+        total: lessons.find(l => l.id === lessonId)?.totalSegments || 0,
+        isCompleted: lesson.completed || false
+      };
+    }
+
+    function getStatusInfo(progress) {
+      if (progress.isCompleted) {
+        return { label: "Completed", className: "completed" };
+      } else if (progress.completed > 0) {
+        return { label: "In Progress", className: "in-progress" };
+      } else {
+        return { label: "Not Started", className: "not-started" };
+      }
+    }
+
+    function renderLessons() {
+      const container = document.getElementById("lessonList");
+      container.innerHTML = "";
+
+      lessons.forEach(lesson => {
+        const progress = getLessonProgress(lesson.id);
+        const status = getStatusInfo(progress);
+        const percentage = progress.total > 0
+          ? Math.round((progress.completed / progress.total) * 100)
+          : 0;
+
+        const card = document.createElement("div");
+        card.className = "lesson-card";
+        card.onclick = () => window.location.href = lesson.url;
+
+        card.innerHTML = `
+          <div class="lesson-header">
+            <div class="lesson-title">${lesson.title}</div>
+            <div class="lesson-status ${status.className}">${status.label}</div>
+          </div>
+          <div class="lesson-description">${lesson.description}</div>
+          <div class="progress-container">
+            <div class="progress-bar ${progress.isCompleted ? 'completed' : ''}"
+                 style="width: ${percentage}%"></div>
+          </div>
+          <div class="progress-text">
+            ${progress.completed} of ${progress.total} segments completed (${percentage}%)
+          </div>
+        `;
+
+        container.appendChild(card);
+      });
+    }
+
+    // Render lessons on page load
+    renderLessons();
+  </script>
+</body>
+</html>
