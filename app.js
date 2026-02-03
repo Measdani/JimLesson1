@@ -240,13 +240,12 @@ btnPlay.onclick = () => {
 
 
 btnPause.onclick = () => {
-  console.log("Pause clicked, segment:", idx);
+  console.log("Pause clicked, audio active:", audio);
   if (isUsingAudio()) {
     console
     audio.pause();
   } else {
-    console.log("Stopping TTS");
-    stopTTS();
+    console.log("Stopping TTS");    stopTTS();
   }
 };
 
