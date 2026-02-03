@@ -336,17 +336,38 @@ btnPlay.onclick = () => {
 
 
 btnPause.onclick = () => {
-  if (isUsingAudio()) {
-    audio.pause();
-  } else {
-    stopTTS();
-  }
+  console.log("Pause clicked, current idx:", idx);
+
+  // Always pause audio (handles both segment audio and flow audio)
+  audio.pause();
+
+  // Always stop TTS (in case it's active)
+  stopTTS();
 };
 
 btnRepeat.onclick = () => {
+  console.log("btnRepeat clicked, idx:", idx);
   const s = LESSON1[idx];
+  console.log("Repeat clicked, segment:", idx);
+
+  // stop TTS if active
+  stopTTS();
+  // stop any audio
+  audio.pause();
+
+  // If this segment has a flow, reset and replay it
+  if (hasFlow(s)) {
+    resetFlow();
+    playFlowItem();
+    return;
+  }
+
+  // Otherwise handle normal audio/TTS
   if (isUsingAudio()) {
+    console.log("Repeating audio");
+    audio.src = s.audioUrl;
     audio.currentTime = 0;
+    audio.load();
     audio.play().catch(() => {});
   } else {
     speakText(s.transcript);
@@ -421,6 +442,10 @@ btnAsk.onclick = () => {
     pausedAt = 0;
   }
 
+  // Hide AI workspace output if visible
+  aiOutput.classList.add("hidden");
+
+  // Show Ask modal
   qModal.classList.remove("hidden");
   qText.focus();
 };
@@ -575,3 +600,4 @@ aiBtn.addEventListener("click", (e) => {
 // Start at segment 1
 loadSegment(0);
 flowIndex = 0;
+
