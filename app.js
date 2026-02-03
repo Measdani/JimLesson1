@@ -250,6 +250,7 @@ btnPause.onclick = () => {
 };
 
 btnRepeat.onclick = () => {
+  console.log("btnRepeat clicked, idx:", idx);
   const s = LESSON1[idx];
   console.log("Repeat clicked, segment:", idx);
   if (isUsingAudio()) {
