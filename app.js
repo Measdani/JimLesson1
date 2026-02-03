@@ -240,31 +240,40 @@ btnPlay.onclick = () => {
 
 
 btnPause.onclick = () => {
-  console.log("Pause clicked, current idk:", idx);
-  if (isUsingAudio()) {
-    console
-    audio.pause();
-  } else {
-    console.log("Stopping TTS");    stopTTS();
-  }
+  console.log("Pause clicked, current idx:", idx);
+
+  // Always pause audio (handles both segment audio and flow audio)
+  audio.pause();
+
+  // Always stop TTS (in case it's active)
+  stopTTS();
 };
 
 btnRepeat.onclick = () => {
   console.log("btnRepeat clicked, idx:", idx);
   const s = LESSON1[idx];
   console.log("Repeat clicked, segment:", idx);
+
   // stop TTS if active
   stopTTS();
-  
+  // stop any audio
+  audio.pause();
+
+  // If this segment has a flow, reset and replay it
+  if (hasFlow(s)) {
+    resetFlow();
+    playFlowItem();
+    return;
+  }
+
+  // Otherwise handle normal audio/TTS
   if (isUsingAudio()) {
     console.log("Repeating audio");
-    if (audio.src!== s.audioUrl){
-      audio.src = s.audioUrl;
-        audio.currentTime = 0;
-    }
-audio.play().catch(() => {});
-        
-    } else {
+    audio.src = s.audioUrl;
+    audio.currentTime = 0;
+    audio.load();
+    audio.play().catch(() => {});
+  } else {
     speakText(s.transcript);
   }
 };
