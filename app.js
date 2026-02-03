@@ -240,19 +240,25 @@ btnPlay.onclick = () => {
 
 
 btnPause.onclick = () => {
+  console.log("Pause clicked, segment:", idx);
   if (isUsingAudio()) {
+    console
     audio.pause();
   } else {
+    console.log("Stopping TTS");
     stopTTS();
   }
 };
 
 btnRepeat.onclick = () => {
   const s = LESSON1[idx];
+  console.log("Repeat clicked, segment:", idx);
   if (isUsingAudio()) {
+    console.log("Repeating audio");
     audio.currentTime = 0;
     audio.play().catch(() => {});
   } else {
+    console.log("Repeating TTS");
     speakText(s.transcript);
   }
 };
