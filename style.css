@@ -285,3 +285,27 @@ body.modal-open #aiCard {
   visibility: hidden;
 }
 
+/* AI Output - wrap text and keep container fixed */
+#aiOutput {
+  background: #f8fafc;
+  border: 1px solid rgba(17,24,39,0.08);
+  padding: 12px;
+  border-radius: 10px;
+  margin-top: 12px;
+
+  /* Text wrapping */
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+
+  /* Keep box size fixed */
+  max-width: 100%;
+  overflow-x: hidden;
+
+  /* Styling */
+  line-height: 1.6;
+  font-size: 14px;
+  color: #111827;
+  min-height: 60px;
+}
+
