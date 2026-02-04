@@ -9,9 +9,9 @@ module.exports = async (req, res) => {
       return res.status(400).json({ error: "Missing question" });
     }
 
-    const apiKey = process.env.OPENAI_API_KEY;
+    const apiKey = process.env.AI_SECRET_KEY;
     if (!apiKey) {
-      return res.status(500).json({ error: "Server missing OPENAI_API_KEY" });
+      return res.status(500).json({ error: "Server missing AI_SECRET_KEY" });
     }
 
     const SYSTEM_PROMPT = `
@@ -33,32 +33,27 @@ Rules:
       }
     ];
 
-    const r = await fetch("https://api.openai.com/v1/responses", {
+    const r = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${apiKey}`,
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        model: "gpt-5",
-        input,
-        temperature: 0.2
+        model: "gpt-3.5-turbo",
+        messages: input,
+        temperature: 0.7
       })
     });
 
     const out = await r.json();
 
-    let answer = out.output_text;
-    if (!answer && Array.isArray(out.output)) {
-      for (const msg of out.output) {
-        if (Array.isArray(msg.content)) {
-          const t = msg.content.find(
-            (c) => c.type === "output_text" && c.text
-          );
-          if (t?.text) {
-            answer = t.text;
-            break;
-          }
+    let answer = out.choices?.[0]?.message?.content || "";
+    if (!answer && Array.isArray(out.choices)) {
+      for (const choice of out.choices) {
+        if (choice?.message?.content) {
+          answer = choice.message.content;
+          break;
         }
       }
     }
