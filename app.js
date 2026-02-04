@@ -492,7 +492,7 @@ btnClose.onclick = () => {
 
 btnSend.onclick = async () => {
   console.log("SEND clicked");
-  answerText.textContent = "Thinking...";
+  answerText.innerHTML = '<span class="loading-spinner"></span>Thinking...';
 
   const question = qText.value.trim();
   if (!question) {
@@ -515,8 +515,11 @@ btnSend.onclick = async () => {
 
     const data = await res.json();
     answerText.textContent = data.answer || JSON.stringify(data, null, 2);
+
+    // Clear input after successful response
+    qText.value = "";
   } catch (err) {
-    answerText.textContent = "Error contacting /api/ask. (This is expected unless you built that endpoint.)";
+    answerText.textContent = "Error contacting the AI. Please try again.";
     console.error(err);
   }
 };
@@ -588,13 +591,13 @@ aiBtn.onclick = async () => {
 
   if (!q) {
     aiOutput.classList.remove("hidden");
-    aiOutput.textContent = "Type a question to explore this lesson.";
+    aiOutput.innerHTML = '<span class="empty-state">Type a question to explore this lesson.</span>';
     return;
   }
 
-  // Show loading state
+  // Show loading state with spinner
   aiOutput.classList.remove("hidden");
-  aiOutput.textContent = "Thinking...";
+  aiOutput.innerHTML = '<span class="loading-spinner"></span>Thinking...';
 
   const payload = {
     lesson: "Lesson 1",
@@ -611,6 +614,9 @@ aiBtn.onclick = async () => {
 
     const data = await res.json();
     aiOutput.textContent = data.answer || JSON.stringify(data, null, 2);
+
+    // Clear input after successful response
+    aiInput.value = "";
   } catch (err) {
     aiOutput.textContent = "Error contacting the AI. Please try again.";
     console.error(err);
@@ -618,7 +624,36 @@ aiBtn.onclick = async () => {
 };
 
 
+// Keyboard shortcuts
+// Enter to send in AI Workspace
+aiInput.addEventListener("keydown", (e) => {
+  if (e.key === "Enter" && !e.shiftKey) {
+    e.preventDefault();
+    aiBtn.click();
+  }
+});
+
+// Enter to send in Ask modal
+qText.addEventListener("keydown", (e) => {
+  if (e.key === "Enter" && !e.shiftKey) {
+    e.preventDefault();
+    btnSend.click();
+  }
+});
+
+// Escape to close Ask modal
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && !qModal.classList.contains("hidden")) {
+    btnClose.click();
+  }
+});
+
 // Start at segment 1
 loadSegment(0);
 flowIndex = 0;
+
+// Auto-play the first segment
+setTimeout(() => {
+  btnPlay.click();
+}, 500);
 

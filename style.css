@@ -309,3 +309,32 @@ body.modal-open #aiCard {
   min-height: 60px;
 }
 
+/* Loading spinner animation */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.loading-spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(37, 99, 235, 0.2);
+  border-top-color: #2563eb;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+/* Smooth transitions for AI output */
+#aiOutput, #answerText {
+  transition: opacity 0.2s ease;
+}
+
+/* Empty state styling */
+.empty-state {
+  color: #64748b;
+  font-style: italic;
+}
+
