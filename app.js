@@ -168,16 +168,17 @@ function startListening() {
 
 function handleVoiceCommand(said) {
   // common commands
-  if (said.includes("play")) btnPlay.click();
-  else if (said.includes("pause") || said.includes("stop")) btnPause.click();
-  else if (said.includes("repeat") || said.includes("again")) btnRepeat.click();
-  else if (said === "next" || said.includes("next")) btnNext.click();
-  else if (said.startsWith("ask ")) {
+  if (said.includes("play") || said.includes("pause") || said.includes("stop")) {
+    btnPlayPause.click();
+  } else if (said.includes("repeat") || said.includes("again")) {
+    btnRepeat.click();
+  } else if (said === "next" || said.includes("next")) {
+    btnNext.click();
+  } else if (said.startsWith("ask ")) {
     const question = said.replace(/^ask\s+/, "");
     btnAsk.click();
     qText.value = question;
   } else {
-    // If you want: show what was heard somewhere
     console.log("Heard:", said);
   }
 }
@@ -190,13 +191,14 @@ const gateBox = document.getElementById("gateBox");
 const progress = document.getElementById("progress");
 
 
-const btnPlay = document.getElementById("btnPlay");
-const btnPause = document.getElementById("btnPause");
+const btnPlayPause = document.getElementById("btnPlayPause");
 const btnRepeat = document.getElementById("btnRepeat");
 const btnAsk = document.getElementById("btnAsk");
 const btnNext = document.getElementById("btnNext");
 const btnBack = document.getElementById("btnBack");
 const btnExit = document.getElementById("btnExit");
+
+let isPlaying = false;
 
 
 const qModal = document.getElementById("qModal");
@@ -307,57 +309,69 @@ function enterGate() {
   btnNext.disabled = false;
 }
 // --- Controls ---
-btnPlay.onclick = () => {
+btnPlayPause.onclick = () => {
   const s = LESSON1[idx];
-  console.log("Play clicked", s.id);
 
-  // Disable Continue button until audio/content finishes
-  btnNext.disabled = true;
-  inGate = false;
+  if (isPlaying) {
+    // Currently playing, so pause
+    console.log("Pause clicked", s.id);
+    isPaused = true;
+    isPlaying = false;
 
-  if (hasFlow(s)) {
-    // If paused, resume from current flow position
-    if (isPaused) {
-      isPaused = false;
-      playFlowItem();
-    } else {
-      // Otherwise start from beginning
-      resetFlow();
-      playFlowItem();
-    }
-    return;
-  }
+    audio.pause();
+    stopTTS();
 
-  if (isUsingAudio()) {
-    isPaused = false;
-    audio.play().catch((e) => console.error(e));
+    btnPlayPause.innerHTML = "▶️ Play";
+    btnPlayPause.classList.remove("btn-danger");
+    btnPlayPause.classList.add("btn-primary");
   } else {
-    speakText(s.transcript);
+    // Currently paused/stopped, so play
+    console.log("Play clicked", s.id);
+    isPlaying = true;
+
+    // Show Repeat button after first play
+    btnRepeat.classList.remove("hidden");
+
+    // Disable Continue button until audio/content finishes
+    btnNext.disabled = true;
+    inGate = false;
+
+    btnPlayPause.innerHTML = "⏸️ Pause";
+    btnPlayPause.classList.remove("btn-primary");
+    btnPlayPause.classList.add("btn-danger");
+
+    if (hasFlow(s)) {
+      if (isPaused) {
+        isPaused = false;
+        playFlowItem();
+      } else {
+        resetFlow();
+        playFlowItem();
+      }
+      return;
+    }
+
+    if (isUsingAudio()) {
+      isPaused = false;
+      audio.play().catch((e) => console.error(e));
+    } else {
+      speakText(s.transcript);
+    }
   }
-};
-
-
-
-btnPause.onclick = () => {
-  console.log("Pause clicked, current idx:", idx);
-
-  // Mark as paused so Play can resume
-  isPaused = true;
-
-  // Always pause audio (handles both segment audio and flow audio)
-  audio.pause();
-
-  // Always stop TTS (in case it's active)
-  stopTTS();
 };
 
 btnRepeat.onclick = () => {
-  console.log("btnRepeat clicked, idx:", idx);
+  console.log("Repeat clicked, idx:", idx);
   const s = LESSON1[idx];
-  console.log("Repeat clicked, segment:", idx);
 
   // Reset pause state - repeat always starts from beginning
   isPaused = false;
+  isPlaying = true;
+
+  // Update button state
+  btnPlayPause.innerHTML = "⏸️ Pause";
+  btnPlayPause.classList.remove("btn-primary");
+  btnPlayPause.classList.add("btn-danger");
 
   // stop TTS if active
   stopTTS();
@@ -389,6 +403,12 @@ btnBack.onclick = () => {
   audio.pause();
   audio.removeAttribute("src");
   audio.load();
+
+  // Reset playing state
+  isPlaying = false;
+  btnPlayPause.innerHTML = "▶️ Play";
+  btnPlayPause.classList.remove("btn-danger");
+  btnPlayPause.classList.add("btn-primary");
 
   // Hide any active prompts/modals
   respModal.classList.add("hidden");
@@ -459,6 +479,15 @@ btnAsk.onclick = () => {
   } else {
     stopTTS();
     pausedAt = 0;
+  }
+
+  // Update playing state
+  if (isPlaying) {
+    isPlaying = false;
+    isPaused = true;
+    btnPlayPause.innerHTML = "▶️ Play";
+    btnPlayPause.classList.remove("btn-danger");
+    btnPlayPause.classList.add("btn-primary");
   }
 
   // Hide AI workspace output if visible
@@ -539,8 +568,12 @@ audio.addEventListener("ended", () => {
   const s = LESSON1[idx];
   if (!s) return;
 
-  // Reset pause state when audio finishes
+  // Reset pause and playing state when audio finishes
   isPaused = false;
+  isPlaying = false;
+  btnPlayPause.innerHTML = "▶️ Play";
+  btnPlayPause.classList.remove("btn-danger");
+  btnPlayPause.classList.add("btn-primary");
 
   // Flow mode: keep advancing flow
   if (nextMode === "flow") {
@@ -654,6 +687,6 @@ flowIndex = 0;
 
 // Auto-play the first segment
 setTimeout(() => {
-  btnPlay.click();
+  btnPlayPause.click();
 }, 500);
 

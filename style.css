@@ -4,7 +4,19 @@ body { font-family: system-ui, Arial, sans-serif; margin: 0; background:#f6f6f6;
 .row { display: flex; gap: 18px; }
 .col { flex: 2; }
 .side { flex: 1; }
-.controls { display:flex; gap:10px; flex-wrap:wrap; margin: 10px 0; }
+.controls {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 10px 0;
+  align-items: center;
+}
+
+/* Visual button grouping */
+#btnBack { margin-right: 4px; }
+#btnPlayPause { margin-right: 4px; }
+#btnRepeat { margin-right: 14px; } /* Extra space after playback controls */
+#btnAsk { margin-right: 14px; } /* Extra space before navigation */
 button { padding: 8px 12px; border-radius: 8px; border: 1px solid #ccc; background:#fff; cursor:pointer; }
 button:disabled { opacity:.5; cursor:not-allowed; }
 .gate { margin-top: 10px; padding: 10px; background:#faf3d1; border:1px solid #e7d28b; border-radius:8px; min-height: 44px; }
