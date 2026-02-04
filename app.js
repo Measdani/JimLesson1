@@ -583,7 +583,7 @@ const aiInput = document.getElementById("aiInput");
 const aiBtn = document.getElementById("aiBtn");
 const aiOutput = document.getElementById("aiOutput");
 
-aiBtn.onclick = () => {
+aiBtn.onclick = async () => {
   const q = aiInput.value.trim();
 
   if (!q) {
@@ -592,10 +592,29 @@ aiBtn.onclick = () => {
     return;
   }
 
-  // Placeholder until API is live
+  // Show loading state
   aiOutput.classList.remove("hidden");
-  aiOutput.textContent =
-    "AI Workspace is coming online soon.\n\nYou'll be able to explore ideas directly here without leaving the lesson.";
+  aiOutput.textContent = "Thinking...";
+
+  const payload = {
+    lesson: "Lesson 1",
+    segment: LESSON1[idx].title,
+    question: q
+  };
+
+  try {
+    const res = await fetch("/api/ask", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
+
+    const data = await res.json();
+    aiOutput.textContent = data.answer || JSON.stringify(data, null, 2);
+  } catch (err) {
+    aiOutput.textContent = "Error contacting the AI. Please try again.";
+    console.error(err);
+  }
 };
 
 
