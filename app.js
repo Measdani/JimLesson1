@@ -97,12 +97,6 @@ function markSegmentComplete(lessonNum, segmentId) {
 }
 
 
-function isSegmentComplete(lessonNum, segmentId) {
-  const progress = loadProgress();
-  const lesson = progress.lessons?.[String(lessonNum)];
-  return !!lesson?.completedSegments?.[segmentId];
-}
-
 
 
 let ttsUtterance = null;
@@ -267,8 +261,7 @@ audio.onloadedmetadata = () => {
   btnNext.disabled = true;
   
 
-  // Exit should reflect completion (do NOT hard-disable it)
-  updateExitState();
+  // Exit button is always enabled for navigation to homepage
 
   renderProgress();
 
@@ -552,10 +545,6 @@ btnSend.onclick = async () => {
     console.error(err);
   }
 };
-function updateExitState() {
-  const lastSeg = LESSON1[LESSON1.length - 1];
-  btnExit.disabled = !isSegmentComplete(LESSON_NUMBER, lastSeg.id);
-}
 
 
 btnMic.onclick = () => {
@@ -589,12 +578,10 @@ audio.addEventListener("ended", () => {
   if (isLast) {
     btnNext.disabled = true;
     gateBox.textContent = "Lesson complete. Click Exit Lesson.";
-    updateExitState(); // This will enable Exit button since last segment is now complete
     return;
   }
 
   unlockNextForCurrentSegment();
-  updateExitState();
 });
 
 
